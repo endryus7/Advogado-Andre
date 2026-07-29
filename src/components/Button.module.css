@@ -43,9 +43,9 @@
 }
 
 .accent:hover {
-  background: #b8985c;
+  background: #d9c9b5;
   transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(199, 167, 108, 0.35);
+  box-shadow: 0 20px 40px rgba(57, 3, 3, 0.25);
 }
 
 .outline {

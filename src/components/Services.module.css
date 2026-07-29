@@ -58,7 +58,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(11, 19, 32, 0.05);
+  background: rgba(57, 3, 3, 0.05);
   color: var(--al-primary);
   margin-bottom: 24px;
   transition: all 0.4s ease;

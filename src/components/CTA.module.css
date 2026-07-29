@@ -10,8 +10,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 15% 30%, rgba(199, 167, 108, 0.15), transparent 45%),
-    radial-gradient(circle at 85% 70%, rgba(199, 167, 108, 0.1), transparent 40%);
+    radial-gradient(circle at 15% 30%, rgba(232, 221, 208, 0.15), transparent 45%),
+    radial-gradient(circle at 85% 70%, rgba(232, 221, 208, 0.1), transparent 40%);
   pointer-events: none;
 }
 

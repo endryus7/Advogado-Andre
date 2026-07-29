@@ -1,54 +1,80 @@
 import { motion } from "framer-motion";
-import { Check, MessageCircle, CalendarClock } from "lucide-react";
+import {
+  Check,
+  MessageCircle,
+  ShieldCheck,
+  Phone,
+  MapPin,
+  Clock3,
+} from "lucide-react";
+
 import styles from "./Hero.module.css";
 import Button from "./Button";
-import lawyer from "@/assets/lawyer.png.asset.json";
+
+import heroOffice from "@/assets/images/hero-office.jpg";
 import { WHATSAPP_URL } from "@/utils/whatsapp";
 
 const benefits = [
-  "Atendimento imediato",
-  "Atuação em flagrantes",
-  "Defesa estratégica",
+  "Prisão em Flagrante",
   "Audiência de Custódia",
+  "Habeas Corpus",
+  "Defesa Estratégica",
 ];
 
-const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+  transition: {
+    duration: 0.8,
+    delay,
+    ease: [0.22, 1, 0.36, 1],
+  },
 });
 
 export default function Hero() {
   return (
     <section id="home" className={styles.hero}>
-      <div className={styles.bgOrn} />
-      <div className={styles.grid} />
+      <img
+        src={heroOffice}
+        alt=""
+        className={styles.bgImage}
+        loading="eager"
+        fetchPriority="high"
+      />
+
+      <div className={styles.overlay} />
 
       <div className={styles.container}>
+        {/* ================= LEFT ================= */}
+
         <div className={styles.left}>
-          <motion.span className={styles.eyebrow} {...fade(0)}>
-            Advocacia Criminal — Porto Alegre e Região
+          <motion.span className={styles.eyebrow} {...fadeUp(0)}>
+            ADVOCACIA CRIMINAL • PORTO ALEGRE E REGIÃO
           </motion.span>
 
-          <motion.h1 className={styles.title} {...fade(0.1)}>
-            Defesa Criminal <em>Estratégica</em> para Momentos Decisivos
+          <motion.h1 className={styles.title} {...fadeUp(0.1)}>
+            Defesa Criminal
+            <br />
+            <em>Estratégica</em> para
+            <br />
+            Momentos Decisivos
           </motion.h1>
 
-          <motion.p className={styles.subtitle} {...fade(0.2)}>
-            Atuação rápida, técnica e comprometida na defesa dos seus direitos em casos
-            de Direito Penal e Direito Processual Penal.
+          <motion.div
+            className={styles.divider}
+            {...fadeUp(0.18)}
+          />
+
+          <motion.p className={styles.subtitle} {...fadeUp(0.2)}>
+            Atuação técnica, rápida e personalizada na defesa dos seus
+            direitos em casos de Direito Penal e Direito Processual Penal.
+            Cada caso exige estratégia, experiência e atuação imediata.
           </motion.p>
 
-          <motion.ul className={styles.benefits} {...fade(0.3)}>
-            {benefits.map((b) => (
-              <li key={b}>
-                <Check size={16} strokeWidth={2.5} />
-                {b}
-              </li>
-            ))}
-          </motion.ul>
-
-          <motion.div className={styles.actions} {...fade(0.4)}>
+          <motion.div
+            className={styles.actions}
+            {...fadeUp(0.3)}
+          >
             <Button
               as="a"
               href={WHATSAPP_URL}
@@ -57,49 +83,131 @@ export default function Hero() {
               variant="accent"
             >
               <MessageCircle size={18} />
+
               Falar no WhatsApp
             </Button>
+
             <Button
               as="a"
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#sobre"
               variant="ghostLight"
             >
-              <CalendarClock size={18} />
-              Agendar Atendimento
+              Conheça o advogado
             </Button>
+          </motion.div>
+
+          <motion.div
+            className={styles.badges}
+            {...fadeUp(0.4)}
+          >
+            {benefits.map((item) => (
+              <div key={item} className={styles.badge}>
+                <Check size={15} />
+
+                <span>{item}</span>
+              </div>
+            ))}
           </motion.div>
         </div>
 
+        {/* ================= RIGHT ================= */}
+
         <motion.div
           className={styles.right}
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, x: 80 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{
+            duration: 0.9,
+            delay: 0.25,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
-          <motion.div
-            className={styles.photoFrame}
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span className={`${styles.corner} ${styles.cornerTL}`} />
-            <span className={`${styles.corner} ${styles.cornerBR}`} />
-            <img
-              src={lawyer.url}
-              alt="Dr. André Albani Lara - Advogado Criminalista"
-              className={styles.photo}
-              loading="eager"
-            />
-            <div className={styles.badge}>
-              <strong>Dr. André Albani Lara</strong>
-              <span>Advogado Criminalista</span>
+          <div className={styles.infoCard}>
+            <div className={styles.cardHeader}>
+              <ShieldCheck size={22} />
+
+              <span>ATENDIMENTO IMEDIATO</span>
             </div>
-          </motion.div>
+
+            <h3>
+              Defesa Técnica,
+              <br />
+              Estratégica e
+              <br />
+              Personalizada.
+            </h3>
+
+            <div className={styles.cardDivider} />
+
+            <div className={styles.cardItems}>
+              <div className={styles.cardItem}>
+                <Phone size={18} />
+
+                <div>
+                  <strong>Contato</strong>
+
+                  <span>WhatsApp</span>
+                </div>
+              </div>
+
+              <div className={styles.cardItem}>
+                <MapPin size={18} />
+
+                <div>
+                  <strong>Localização</strong>
+
+                  <span>Porto Alegre e Região</span>
+                </div>
+              </div>
+
+              <div className={styles.cardItem}>
+                <Clock3 size={18} />
+
+                <div>
+                  <strong>Disponibilidade</strong>
+
+                  <span>Atendimento em casos urgentes</span>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.cardButton}
+            >
+              <MessageCircle size={18} />
+
+              Solicitar Atendimento
+            </a>
+          </div>
         </motion.div>
       </div>
 
-      <span className={styles.scrollHint}>Role para explorar</span>
+      <div className={styles.bottomBar}>
+        <div className={styles.bottomItem}>
+          <strong>Atuação Imediata</strong>
+
+          <span>Resposta rápida para casos urgentes.</span>
+        </div>
+
+        <div className={styles.bottomItem}>
+          <strong>Direito Penal</strong>
+
+          <span>Defesa técnica e personalizada.</span>
+        </div>
+
+        <div className={styles.bottomItem}>
+          <strong>Porto Alegre</strong>
+
+          <span>Atendimento presencial e online.</span>
+        </div>
+      </div>
+
+      <span className={styles.scrollHint}>
+        Role para explorar
+      </span>
     </section>
   );
 }
