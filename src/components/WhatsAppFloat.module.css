@@ -1,50 +1,80 @@
-.float {
+/* ==========================================================================
+   Floating WhatsApp Button - Minimalist & Pure CSS
+   ========================================================================== */
+
+.button {
   position: fixed;
-  bottom: 26px;
-  right: 26px;
-  z-index: 90;
-  display: inline-flex;
+  bottom: 1.75rem;
+  right: 1.75rem;
+  z-index: 999;
+  
+  display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 20px 14px 16px;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  
   background: #25d366;
   color: #ffffff;
-  border-radius: 999px;
+  
+  box-shadow: 0 12px 24px -6px rgba(37, 211, 102, 0.4),
+              0 8px 16px -6px rgba(0, 0, 0, 0.3);
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  box-shadow: 0 20px 40px rgba(37, 211, 102, 0.35);
-  transition: all 0.3s ease;
+  
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s ease,
+              box-shadow 0.3s ease;
 }
 
-.float:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 24px 44px rgba(37, 211, 102, 0.5);
+.button:hover {
+  transform: scale(1.08) translateY(-2px);
+  background: #1ebe5b;
+  box-shadow: 0 16px 32px -6px rgba(37, 211, 102, 0.5),
+              0 12px 20px -6px rgba(0, 0, 0, 0.4);
 }
 
-.float::before {
-  content: "";
+.icon {
+  width: 1.85rem;
+  height: 1.85rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.button:hover .icon {
+  transform: rotate(-6deg);
+}
+
+/* Efeito Ping Pulsante */
+.ping {
   position: absolute;
   inset: 0;
-  border-radius: 999px;
-  border: 2px solid rgba(37, 211, 102, 0.4);
-  animation: pulse 2.2s infinite;
+  z-index: -1;
+  border-radius: 9999px;
+  background: rgba(37, 211, 102, 0.55);
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+  pointer-events: none;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  100% { transform: scale(1.35); opacity: 0; }
-}
-
-.label {
-  display: inline;
-}
-
-@media (max-width: 520px) {
-  .label {
-    display: none;
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
   }
-  .float {
-    padding: 14px;
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+  .button {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .icon {
+    width: 1.65rem;
+    height: 1.65rem;
   }
 }

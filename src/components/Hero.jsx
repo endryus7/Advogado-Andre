@@ -6,6 +6,7 @@ import {
   Phone,
   MapPin,
   Clock3,
+  ArrowRight,
 } from "lucide-react";
 
 import styles from "./Hero.module.css";
@@ -34,29 +35,34 @@ const fadeUp = (delay = 0) => ({
 export default function Hero() {
   return (
     <section id="home" className={styles.hero}>
-      <img
+      {/* Background Image com Efeito Zoom Suave */}
+      <motion.img
         src={heroOffice}
-        alt=""
+        alt="Escritório de Advocacia Criminal"
         className={styles.bgImage}
         loading="eager"
         fetchPriority="high"
+        initial={{ scale: 1.08 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
       />
 
+      {/* Overlays de Contraste Profissional */}
       <div className={styles.overlay} />
+      <div className={styles.ambientGlow} />
 
       <div className={styles.container}>
         {/* ================= LEFT ================= */}
-
         <div className={styles.left}>
-          <motion.span className={styles.eyebrow} {...fadeUp(0)}>
-            ADVOCACIA CRIMINAL • PORTO ALEGRE E REGIÃO
-          </motion.span>
+          <motion.div className={styles.eyebrowWrapper} {...fadeUp(0)}>
+            <span className={styles.eyebrow}>
+              ADVOCACIA CRIMINAL • PORTO ALEGRE E REGIÃO
+            </span>
+          </motion.div>
 
           <motion.h1 className={styles.title} {...fadeUp(0.1)}>
-            Defesa Criminal
-            <br />
-            <em>Estratégica</em> para
-            <br />
+            Defesa Criminal <br />
+            <em>Estratégica</em> para <br />
             Momentos Decisivos
           </motion.h1>
 
@@ -67,7 +73,7 @@ export default function Hero() {
 
           <motion.p className={styles.subtitle} {...fadeUp(0.2)}>
             Atuação técnica, rápida e personalizada na defesa dos seus
-            direitos em casos de Direito Penal e Direito Processual Penal.
+            direitos em casos de Direito Penal e Processual Penal.
             Cada caso exige estratégia, experiência e atuação imediata.
           </motion.p>
 
@@ -81,16 +87,18 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               variant="accent"
+              className={styles.primaryBtn}
             >
               <MessageCircle size={18} />
-
-              Falar no WhatsApp
+              <span>Falar no WhatsApp</span>
+              <ArrowRight size={16} className={styles.btnArrow} />
             </Button>
 
             <Button
               as="a"
               href="#sobre"
               variant="ghostLight"
+              className={styles.secondaryBtn}
             >
               Conheça o advogado
             </Button>
@@ -102,8 +110,9 @@ export default function Hero() {
           >
             {benefits.map((item) => (
               <div key={item} className={styles.badge}>
-                <Check size={15} />
-
+                <div className={styles.badgeIcon}>
+                  <Check size={14} />
+                </div>
                 <span>{item}</span>
               </div>
             ))}
@@ -111,103 +120,107 @@ export default function Hero() {
         </div>
 
         {/* ================= RIGHT ================= */}
-
         <motion.div
           className={styles.right}
-          initial={{ opacity: 0, x: 80 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 40, x: 20 }}
+          animate={{ opacity: 1, y: 0, x: 0 }}
           transition={{
             duration: 0.9,
             delay: 0.25,
             ease: [0.22, 1, 0.36, 1],
           }}
         >
-          <div className={styles.infoCard}>
-            <div className={styles.cardHeader}>
-              <ShieldCheck size={22} />
+          <div className={styles.infoCardWrapper}>
+            <div className={styles.infoCard}>
+              <div className={styles.cardHeader}>
+                <div className={styles.statusPulse}>
+                  <ShieldCheck size={20} />
+                </div>
+                <span>ATENDIMENTO URGENTE 24H</span>
+              </div>
 
-              <span>ATENDIMENTO IMEDIATO</span>
+              <h3>
+                Defesa Técnica, <br />
+                Estratégica e <br />
+                Personalizada.
+              </h3>
+
+              <div className={styles.cardDivider} />
+
+              <div className={styles.cardItems}>
+                <div className={styles.cardItem}>
+                  <div className={styles.itemIcon}>
+                    <Phone size={18} />
+                  </div>
+                  <div>
+                    <strong>Contato Direto</strong>
+                    <span>Plantão via WhatsApp</span>
+                  </div>
+                </div>
+
+                <div className={styles.cardItem}>
+                  <div className={styles.itemIcon}>
+                    <MapPin size={18} />
+                  </div>
+                  <div>
+                    <strong>Localização</strong>
+                    <span>Porto Alegre e Região Metropolitana</span>
+                  </div>
+                </div>
+
+                <div className={styles.cardItem}>
+                  <div className={styles.itemIcon}>
+                    <Clock3 size={18} />
+                  </div>
+                  <div>
+                    <strong>Agilidade</strong>
+                    <span>Pronta resposta para prisões e flagrantes</span>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.cardButton}
+              >
+                <MessageCircle size={18} />
+                <span>Solicitar Atendimento Imediato</span>
+              </a>
             </div>
-
-            <h3>
-              Defesa Técnica,
-              <br />
-              Estratégica e
-              <br />
-              Personalizada.
-            </h3>
-
-            <div className={styles.cardDivider} />
-
-            <div className={styles.cardItems}>
-              <div className={styles.cardItem}>
-                <Phone size={18} />
-
-                <div>
-                  <strong>Contato</strong>
-
-                  <span>WhatsApp</span>
-                </div>
-              </div>
-
-              <div className={styles.cardItem}>
-                <MapPin size={18} />
-
-                <div>
-                  <strong>Localização</strong>
-
-                  <span>Porto Alegre e Região</span>
-                </div>
-              </div>
-
-              <div className={styles.cardItem}>
-                <Clock3 size={18} />
-
-                <div>
-                  <strong>Disponibilidade</strong>
-
-                  <span>Atendimento em casos urgentes</span>
-                </div>
-              </div>
-            </div>
-
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.cardButton}
-            >
-              <MessageCircle size={18} />
-
-              Solicitar Atendimento
-            </a>
           </div>
         </motion.div>
       </div>
 
-      <div className={styles.bottomBar}>
-        <div className={styles.bottomItem}>
-          <strong>Atuação Imediata</strong>
+      {/* ================= BOTTOM BAR (FLUTUANTE) ================= */}
+      <div className={styles.bottomBarContainer}>
+        <div className={styles.bottomBar}>
+          <div className={styles.bottomItem}>
+            <span className={styles.itemTag}>01</span>
+            <div>
+              <strong>Atuação Imediata</strong>
+              <span>Resposta rápida para casos urgentes e flagrantes.</span>
+            </div>
+          </div>
 
-          <span>Resposta rápida para casos urgentes.</span>
-        </div>
+          <div className={styles.bottomItem}>
+            <span className={styles.itemTag}>02</span>
+            <div>
+              <strong>Direito Penal</strong>
+              <span>Defesa técnica focada na garantia dos seus direitos.</span>
+            </div>
+          </div>
 
-        <div className={styles.bottomItem}>
-          <strong>Direito Penal</strong>
-
-          <span>Defesa técnica e personalizada.</span>
-        </div>
-
-        <div className={styles.bottomItem}>
-          <strong>Porto Alegre</strong>
-
-          <span>Atendimento presencial e online.</span>
+          <div className={styles.bottomItem}>
+            <span className={styles.itemTag}>03</span>
+            <div>
+              <strong>Atendimento Regional</strong>
+              <span>Atuação presencial em Porto Alegre e consultas online.</span>
+            </div>
+          </div>
         </div>
       </div>
-
-      <span className={styles.scrollHint}>
-        Role para explorar
-      </span>
     </section>
   );
 }
