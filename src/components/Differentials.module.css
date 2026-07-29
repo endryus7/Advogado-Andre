@@ -1,0 +1,85 @@
+.section {
+  padding: 140px 0;
+  background: var(--al-bg);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--al-border);
+  border: 1px solid var(--al-border);
+  margin-top: 20px;
+}
+
+.card {
+  background: var(--al-white);
+  padding: 44px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.card:hover {
+  background: var(--al-primary);
+}
+
+.card:hover .cardTitle,
+.card:hover .cardIcon {
+  color: var(--al-white);
+}
+
+.card:hover .cardText {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.card:hover .cardIcon {
+  color: var(--al-accent);
+}
+
+.cardIcon {
+  color: var(--al-primary);
+  transition: color 0.4s ease;
+}
+
+.cardTitle {
+  font-family: var(--al-serif);
+  color: var(--al-primary);
+  font-size: 1.25rem;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+.cardText {
+  color: var(--al-text-light);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+@media (max-width: 960px) {
+  .section {
+    padding: 100px 0;
+  }
+  .container {
+    padding: 0 24px;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

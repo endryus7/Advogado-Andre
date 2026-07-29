@@ -1,0 +1,48 @@
+:root {
+  --al-primary: #0b1320;
+  --al-secondary: #162033;
+  --al-accent: #c7a76c;
+  --al-bg: #f7f7f7;
+  --al-text: #111111;
+  --al-text-light: #5a5a5a;
+  --al-white: #ffffff;
+  --al-border: rgba(17, 17, 17, 0.08);
+  --al-shadow-sm: 0 4px 20px rgba(11, 19, 32, 0.06);
+  --al-shadow-md: 0 20px 50px rgba(11, 19, 32, 0.1);
+  --al-shadow-lg: 0 40px 90px rgba(11, 19, 32, 0.18);
+  --al-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --al-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.al-root {
+  font-family: var(--al-sans);
+  color: var(--al-text);
+  background: var(--al-bg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+.al-root h1,
+.al-root h2,
+.al-root h3,
+.al-root h4 {
+  font-family: var(--al-serif);
+  color: var(--al-primary);
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+.al-root p {
+  color: var(--al-text-light);
+  line-height: 1.7;
+}
+
+.al-root ::selection {
+  background: var(--al-accent);
+  color: var(--al-primary);
+}
+
+html {
+  scroll-behavior: smooth;
+}
