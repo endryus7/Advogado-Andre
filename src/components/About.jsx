@@ -14,7 +14,7 @@ const pillars = [
 const indicators = [
   { title: "Imediato", label: "Atendimento" },
   { title: "Estratégica", label: "Atuação" },
-  { title: "POA & Região", label: "Cobertura" },
+  { title: "POA e Região", label: "Cobertura" },
   { title: "Direito Penal", label: "Especialidade" },
 ];
 
@@ -37,10 +37,6 @@ export default function About() {
             className={styles.image}
             loading="lazy"
           />
-          <div className={styles.stat}>
-            <h3 className={styles.statTitle}>Defesa Criminal</h3>
-            <p className={styles.statText}>Estratégia e Justiça</p>
-          </div>
         </motion.div>
 
         <motion.div className={styles.content} {...fade}>
@@ -51,7 +47,7 @@ export default function About() {
           <p className={styles.description}>
             Dr. André Albani Lara atua na advocacia criminal com foco em Direito Penal
             e Direito Processual Penal. Cada caso é conduzido com técnica, discrição
-            e proximidade — reunindo estratégia jurídica apurada e atendimento próximo
+            e proximidade reunindo estratégia jurídica apurada e atendimento próximo
             ao cliente em todas as etapas do processo.
           </p>
 

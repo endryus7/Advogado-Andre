@@ -76,3 +76,48 @@ export const videos = [
   { id: "aitbTIJSgJo", title: "Atuação em Audiência" },
   { id: "IglWBf8oEEk", title: "Defesa Criminal" },
 ];
+
+export const practiceAreas = [
+  {
+    category: "Direito Criminal",
+    badge: "Especialidade",
+    items: [
+      "Lavagem de Capitais",
+      "Crimes Dolosos Contra a Vida",
+      "Crimes Contra o Patrimônio",
+      "Crimes Contra a Honra",
+      "Crimes Ambientais",
+      "Crimes Praticados por Funcionários e Gestores Públicos",
+      "Crimes Contra a Ordem Econômica e Tributária",
+      "Crimes Licitatórios",
+      "Lei de Drogas",
+      "Extradição Ativa e Passiva",
+    ],
+  },
+  {
+    category: "Direito Cível",
+    items: [
+      "Ação Civil Ex Delicto",
+      "Ação de Perdas e Danos",
+      "Responsabilidade Civil",
+      "Responsabilidade Médica e Estética",
+    ],
+  },
+  {
+    category: "Direito Imobiliário",
+    items: [
+      "Anulação de Leilão de Imóveis",
+      "Imissão e Reintegração na Posse (Desocupação)",
+      "Assessoria em Arrematações de Leilão Judicial e Extrajudicial",
+      "Usucapião Judicial e Extrajudicial",
+    ],
+  },
+  {
+    category: "Direito Tributário",
+    items: [
+      "Repetição de Indébito Tributário e Isenção",
+      // Lista possivelmente incompleta — a imagem de origem cortava aqui.
+      // Adicione os demais itens se houver.
+    ],
+  },
+];

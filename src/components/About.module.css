@@ -41,33 +41,6 @@
   z-index: 1;
 }
 
-.stat {
-  position: absolute;
-  bottom: -32px;
-  right: -32px;
-  background: var(--al-primary);
-  color: var(--al-white);
-  padding: 24px 28px;
-  border-radius: 2px;
-  z-index: 3;
-  max-width: 220px;
-  box-shadow: var(--al-shadow-md);
-}
-
-.statTitle {
-  font-family: var(--al-serif);
-  font-size: 1.4rem;
-  margin: 0 0 4px;
-  color: var(--al-white);
-}
-
-.statText {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.05em;
-  margin: 0;
-}
-
 .content {
   display: flex;
   flex-direction: column;

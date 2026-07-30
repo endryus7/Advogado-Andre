@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import About from "../components/About";
+import PracticeAreas from "../components/PracticeAreas";
 import Services from "../components/Services";
 import Process from "../components/Process";
 import Differentials from "../components/Differentials";
@@ -19,6 +20,7 @@ export default function LandingPage() {
       <main>
         <Hero />
         <About />
+        <PracticeAreas />
         <Services />
         <Process />
         <Differentials />
