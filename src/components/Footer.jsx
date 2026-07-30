@@ -1,6 +1,6 @@
 import { Instagram, ChevronRight } from "lucide-react";
 import styles from "./Footer.module.css";
-import logo from "@/assets/logo.png.asset.json";
+import logo from "../assets/images/logo.png";
 import { INSTAGRAM_URL, WHATSAPP_URL } from "@/utils/whatsapp";
 
 const links = [
@@ -24,7 +24,7 @@ export default function Footer() {
         <div className={styles.top}>
           <div className={styles.brand}>
             <div className={styles.brandRow}>
-              <img src={logo.url} alt="Logo Albani Lara" className={styles.logo} />
+              <img src={logo} alt="Logo Albani Lara" className={styles.logo} />
               <div>
                 <p className={styles.brandName}>Dr. André Albani Lara</p>
                 <span className={styles.brandTag}>Advocacia Criminal</span>

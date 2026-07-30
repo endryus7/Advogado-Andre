@@ -51,16 +51,22 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function Hero() {
+  // scroll
+  const handleScrollToAbout = (e) => {
+    e.preventDefault();
+    const section = document.getElementById("sobre");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="home" className={styles.hero}>
-      {/* Background isolado num container com overflow:hidden, pra animação de
-          zoom (scale 1.08 -> 1) não vazar pra fora dos limites do Hero. O
-          .hero em si precisa manter overflow visível de propósito, pois a
-          bottom bar flutuante sai pela metade dele em telas grandes. */}
+      {/* Background */}
       <div className={styles.bgLayer}>
         <motion.img
           src={heroOffice}
-          alt=""
+          alt="Escritório de advocacia"
           className={styles.bgImage}
           loading="eager"
           fetchPriority="high"
@@ -113,6 +119,7 @@ export default function Hero() {
             <Button
               as="a"
               href="#sobre"
+              onClick={handleScrollToAbout}
               variant="ghostLight"
               className={styles.secondaryBtn}
             >
@@ -124,7 +131,7 @@ export default function Hero() {
             {benefits.map((item) => (
               <li key={item} className={styles.badge}>
                 <span className={styles.badgeIcon}>
-                  <Check size={14} color="var(--al-accent, #e8ddd0)" />
+                  <Check size={14} />
                 </span>
                 <span>{item}</span>
               </li>
@@ -147,7 +154,7 @@ export default function Hero() {
             <div className={styles.infoCard}>
               <div className={styles.cardHeader}>
                 <span className={styles.statusPulse}>
-                  <ShieldCheck size={20} color="var(--al-accent, #e8ddd0)" />
+                  <ShieldCheck size={20} />
                 </span>
                 <span>ATENDIMENTO URGENTE 24H</span>
               </div>
@@ -165,7 +172,7 @@ export default function Hero() {
               <div className={styles.cardItems}>
                 <div className={styles.cardItem}>
                   <span className={styles.itemIcon}>
-                    <Phone size={18} color="var(--al-accent, #e8ddd0)" />
+                    <Phone size={18} color="#e8ddd0" />
                   </span>
                   <div>
                     <strong>Contato Direto</strong>
@@ -175,7 +182,7 @@ export default function Hero() {
 
                 <div className={styles.cardItem}>
                   <span className={styles.itemIcon}>
-                    <MapPin size={18} color="var(--al-accent, #e8ddd0)" />
+                    <MapPin size={18} color="#e8ddd0" />
                   </span>
                   <div>
                     <strong>Localização</strong>
@@ -185,7 +192,7 @@ export default function Hero() {
 
                 <div className={styles.cardItem}>
                   <span className={styles.itemIcon}>
-                    <Clock3 size={18} color="var(--al-accent, #e8ddd0)" />
+                    <Clock3 size={18} color="#e8ddd0" />
                   </span>
                   <div>
                     <strong>Agilidade</strong>

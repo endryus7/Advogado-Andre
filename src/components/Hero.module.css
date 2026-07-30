@@ -91,20 +91,11 @@
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
   font-size: 0.78rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--al-accent, #e8ddd0);
   font-weight: 600;
-}
-
-.eyebrow::before {
-  content: "";
-  display: inline-block;
-  width: 40px;
-  height: 1px;
-  background: var(--al-accent, #e8ddd0);
 }
 
 .hero .title {
@@ -216,38 +207,27 @@
   position: relative;
 }
 
+/* Card Outer e Border Gradiente */
 .infoCardWrapper {
   position: relative;
   width: 100%;
-}
-
-/* Card Outer Glow */
-.infoCardWrapper::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
   border-radius: 25px;
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(232, 221, 208, 0.4) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(232, 221, 208, 0.1) 100%
+    rgba(232, 221, 208, 0.45) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(232, 221, 208, 0.2) 100%
   );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
 }
 
 .infoCard {
   width: 100%;
   padding: 36px;
   border-radius: 24px;
-  background: rgba(15, 15, 18, 0.65);
+  background: rgba(18, 18, 22, 0.92);
   backdrop-filter: blur(24px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
 }
@@ -261,6 +241,10 @@
   letter-spacing: 0.15em;
   font-size: 0.72rem;
   font-weight: 600;
+}
+
+.cardHeader svg {
+  stroke: var(--al-accent, #e8ddd0);
 }
 
 .statusPulse {
@@ -294,28 +278,25 @@
 
 .cardItem {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  align-items: center;
+  gap: 16px;
 }
 
 .itemIcon {
+  width: 24px; 
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--al-accent, #e8ddd0);
   flex-shrink: 0;
 }
 
-.itemIcon svg,
-.statusPulse svg,
-.badgeIcon svg {
+.itemIcon svg {
   display: block;
-  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  stroke: var(--al-accent, #e8ddd0);
+  color: var(--al-accent, #e8ddd0);
 }
 
 .cardItem strong {
@@ -349,6 +330,10 @@
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: 0 10px 25px rgba(57, 3, 3, 0.25);
+}
+
+.cardButton svg {
+  stroke: var(--al-primary, #390303);
 }
 
 .cardButton:hover {
@@ -563,8 +548,8 @@
   }
 
   .itemIcon {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
   }
 
   .cardButton {

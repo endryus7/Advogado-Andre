@@ -1,37 +1,38 @@
-/* ==========================================================================
-   Floating WhatsApp Button - Minimalist & Pure CSS
-   ========================================================================== */
+/* Floating WhatsApp Button - Minimalist & Pure CSS */
 
 .button {
   position: fixed;
   bottom: 1.75rem;
   right: 1.75rem;
-  z-index: 999;
-  
+  z-index: 90;
+
   display: flex;
   align-items: center;
   justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 9999px;
-  
+
   background: #25d366;
   color: #ffffff;
-  
-  box-shadow: 0 12px 24px -6px rgba(37, 211, 102, 0.4),
-              0 8px 16px -6px rgba(0, 0, 0, 0.3);
+
+  box-shadow:
+    0 12px 24px -6px rgba(37, 211, 102, 0.4),
+    0 8px 16px -6px rgba(0, 0, 0, 0.3);
   text-decoration: none;
-  
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.3s ease,
-              box-shadow 0.3s ease;
+
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .button:hover {
   transform: scale(1.08) translateY(-2px);
   background: #1ebe5b;
-  box-shadow: 0 16px 32px -6px rgba(37, 211, 102, 0.5),
-              0 12px 20px -6px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 16px 32px -6px rgba(37, 211, 102, 0.5),
+    0 12px 20px -6px rgba(0, 0, 0, 0.4);
 }
 
 .icon {

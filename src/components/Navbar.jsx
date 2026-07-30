@@ -7,7 +7,7 @@ import { WHATSAPP_URL } from "@/utils/whatsapp";
 
 const links = [
   { id: "home", label: "Início" },
-  { id: "about", label: "Sobre" },
+  { id: "sobre", label: "Sobre" },
   { id: "services", label: "Serviços" },
   { id: "process", label: "Como Funciona" },
   { id: "videos", label: "Vídeos" },
@@ -30,12 +30,9 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-
     if (open) {
-      // Move o foco para dentro do painel assim que ele abre
       closeRef.current?.focus();
     } else {
-      // Devolve o foco pra onde o usuário estava (evita "perder" o teclado)
       burgerRef.current?.focus();
     }
   }, [open]);
@@ -49,7 +46,6 @@ export default function Navbar() {
         return;
       }
 
-      // Trap de foco: Tab não pode escapar do painel enquanto ele está aberto
       if (e.key === "Tab" && panelRef.current) {
         const focusable = panelRef.current.querySelectorAll(
           'button, a[href], [tabindex]:not([tabindex="-1"])'
@@ -76,7 +72,16 @@ export default function Navbar() {
   const go = (id) => {
     setOpen(false);
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (el) {
+      const headerOffset = 80;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
   };
 
   return (
@@ -116,7 +121,7 @@ export default function Navbar() {
             aria-label="Fale no WhatsApp"
           >
             <MessageCircle size={16} />
-            Fale no WhatsApp
+            <span>Fale no WhatsApp</span>
           </a>
 
           <button
@@ -134,54 +139,70 @@ export default function Navbar() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
-            id="mobile-menu"
-            ref={panelRef}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Menu de navegação"
-            className={styles.mobile}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className={styles.mobileHead}>
-              <div className={styles.brand}>
-                <img src={logo.url} alt="" className={styles.logo} />
-                <span className={styles.brandText}>
-                  <span className={styles.brandName}>André Albani Lara</span>
-                  <span className={styles.brandTag}>Advocacia Criminal</span>
-                </span>
-              </div>
-              <button
-                ref={closeRef}
-                className={styles.mobileClose}
-                onClick={() => setOpen(false)}
-                aria-label="Fechar menu"
-              >
-                <X size={28} />
-              </button>
-            </div>
-            <ul className={styles.mobileMenu}>
-              {links.map((l) => (
-                <li key={l.id}>
-                  <button className={styles.mobileLink} onClick={() => go(l.id)}>
-                    {l.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.mobileCta}
+          <div className={styles.mobileWrapper}>
+            {/* Overlay escuro de fundo (fecha ao clicar fora) */}
+            <motion.div
+              className={styles.backdrop}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setOpen(false)}
+            />
+
+            {/* Painel latera (Drawer) */}
+            <motion.div
+              id="mobile-menu"
+              ref={panelRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu de navegação"
+              className={styles.mobileDrawer}
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
             >
-              <MessageCircle size={18} />
-              Fale no WhatsApp
-            </a>
-          </motion.div>
+              <div className={styles.mobileHead}>
+                <div className={styles.brand}>
+                  <img src={logo} alt="" className={styles.logo} />
+                  <span className={styles.brandText}>
+                    <span className={styles.brandName}>André Albani Lara</span>
+                    <span className={styles.brandTag}>Advocacia Criminal</span>
+                  </span>
+                </div>
+                <button
+                  ref={closeRef}
+                  className={styles.mobileClose}
+                  onClick={() => setOpen(false)}
+                  aria-label="Fechar menu"
+                >
+                  <X size={22} />
+                </button>
+              </div>
+
+              <ul className={styles.mobileMenu}>
+                {links.map((l) => (
+                  <li key={l.id}>
+                    <button className={styles.mobileLink} onClick={() => go(l.id)}>
+                      {l.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              <div className={styles.mobileFooter}>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.mobileCta}
+                >
+                  <MessageCircle size={18} />
+                  <span>Atendimento Via WhatsApp</span>
+                </a>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>
