@@ -6,6 +6,18 @@
   overflow: hidden;
 }
 
+.cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--al-accent), transparent);
+  opacity: 0.5;
+}
+
 .bg {
   position: absolute;
   inset: 0;
@@ -34,7 +46,7 @@
   text-transform: uppercase;
 }
 
-.title {
+.cta .title {
   font-family: var(--al-serif);
   color: var(--al-white);
   font-weight: 400;
@@ -50,14 +62,29 @@
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.8);
   max-width: 620px;
   margin: 0;
   font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .actions {
   margin-top: 12px;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btnArrow {
+  transition: transform 0.3s ease;
+}
+
+.ctaBtn:hover .btnArrow {
+  transform: translateX(4px);
 }
 
 @media (max-width: 640px) {

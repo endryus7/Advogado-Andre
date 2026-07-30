@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, ArrowRight } from "lucide-react";
 import styles from "./CTA.module.css";
 import Button from "./Button";
 import { WHATSAPP_URL } from "@/utils/whatsapp";
@@ -31,9 +31,11 @@ export default function CTA() {
             rel="noopener noreferrer"
             variant="accent"
             size="large"
+            className={styles.ctaBtn}
           >
             <MessageCircle size={20} />
             Fale agora pelo WhatsApp
+            <ArrowRight size={18} className={styles.btnArrow} />
           </Button>
         </div>
       </motion.div>
