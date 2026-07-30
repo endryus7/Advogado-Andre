@@ -100,15 +100,6 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.social}
-            >
-              Falar no WhatsApp
-            </a>
           </div>
         </div>
 

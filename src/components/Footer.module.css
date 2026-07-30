@@ -157,24 +157,6 @@
   color: var(--al-accent);
 }
 
-.social {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--al-primary);
-  background: var(--al-accent);
-  text-decoration: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: background 0.25s ease, transform 0.25s ease;
-}
-
-.social:hover {
-  background: #d9c9b5;
-  transform: translateY(-2px);
-}
 
 .bottom {
   display: flex;
