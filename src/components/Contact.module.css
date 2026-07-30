@@ -76,7 +76,7 @@
 .infoIcon {
   width: 42px;
   height: 42px;
-  border-radius: 2px;
+  border-radius: 50%;
   background: var(--al-primary);
   color: var(--al-accent);
   display: inline-flex;
