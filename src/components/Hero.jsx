@@ -22,6 +22,24 @@ const benefits = [
   "Defesa Estratégica",
 ];
 
+const bottomItems = [
+  {
+    tag: "01",
+    title: "Atuação Imediata",
+    description: "Resposta rápida para casos urgentes e flagrantes.",
+  },
+  {
+    tag: "02",
+    title: "Direito Penal",
+    description: "Defesa técnica focada na garantia dos seus direitos.",
+  },
+  {
+    tag: "03",
+    title: "Atendimento Regional",
+    description: "Atuação presencial em Porto Alegre e consultas online.",
+  },
+];
+
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
   animate: { opacity: 1, y: 0 },
@@ -35,24 +53,28 @@ const fadeUp = (delay = 0) => ({
 export default function Hero() {
   return (
     <section id="home" className={styles.hero}>
-      {/* Background Image com Efeito Zoom Suave */}
-      <motion.img
-        src={heroOffice}
-        alt="Escritório de Advocacia Criminal"
-        className={styles.bgImage}
-        loading="eager"
-        fetchPriority="high"
-        initial={{ scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-      />
+      {/* Background isolado num container com overflow:hidden, pra animação de
+          zoom (scale 1.08 -> 1) não vazar pra fora dos limites do Hero. O
+          .hero em si precisa manter overflow visível de propósito, pois a
+          bottom bar flutuante sai pela metade dele em telas grandes. */}
+      <div className={styles.bgLayer}>
+        <motion.img
+          src={heroOffice}
+          alt=""
+          className={styles.bgImage}
+          loading="eager"
+          fetchPriority="high"
+          initial={{ scale: 1.08 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        />
+      </div>
 
-      {/* Overlays de Contraste Profissional */}
       <div className={styles.overlay} />
       <div className={styles.ambientGlow} />
 
       <div className={styles.container}>
-        {/* ================= LEFT ================= */}
+        {/* LEFT */}
         <div className={styles.left}>
           <motion.div className={styles.eyebrowWrapper} {...fadeUp(0)}>
             <span className={styles.eyebrow}>
@@ -66,21 +88,15 @@ export default function Hero() {
             Momentos Decisivos
           </motion.h1>
 
-          <motion.div
-            className={styles.divider}
-            {...fadeUp(0.18)}
-          />
+          <motion.div className={styles.divider} {...fadeUp(0.18)} />
 
           <motion.p className={styles.subtitle} {...fadeUp(0.2)}>
-            Atuação técnica, rápida e personalizada na defesa dos seus
-            direitos em casos de Direito Penal e Processual Penal.
-            Cada caso exige estratégia, experiência e atuação imediata.
+            Atuação técnica, rápida e personalizada na defesa dos seus direitos
+            em casos de Direito Penal e Processual Penal. Cada caso exige
+            estratégia, experiência e atuação imediata.
           </motion.p>
 
-          <motion.div
-            className={styles.actions}
-            {...fadeUp(0.3)}
-          >
+          <motion.div className={styles.actions} {...fadeUp(0.3)}>
             <Button
               as="a"
               href={WHATSAPP_URL}
@@ -104,22 +120,19 @@ export default function Hero() {
             </Button>
           </motion.div>
 
-          <motion.div
-            className={styles.badges}
-            {...fadeUp(0.4)}
-          >
+          <motion.ul className={styles.badges} {...fadeUp(0.4)}>
             {benefits.map((item) => (
-              <div key={item} className={styles.badge}>
-                <div className={styles.badgeIcon}>
-                  <Check size={14} />
-                </div>
+              <li key={item} className={styles.badge}>
+                <span className={styles.badgeIcon}>
+                  <Check size={14} color="var(--al-accent, #e8ddd0)" />
+                </span>
                 <span>{item}</span>
-              </div>
+              </li>
             ))}
-          </motion.div>
+          </motion.ul>
         </div>
 
-        {/* ================= RIGHT ================= */}
+        {/* RIGHT */}
         <motion.div
           className={styles.right}
           initial={{ opacity: 0, y: 40, x: 20 }}
@@ -133,15 +146,17 @@ export default function Hero() {
           <div className={styles.infoCardWrapper}>
             <div className={styles.infoCard}>
               <div className={styles.cardHeader}>
-                <div className={styles.statusPulse}>
-                  <ShieldCheck size={20} />
-                </div>
+                <span className={styles.statusPulse}>
+                  <ShieldCheck size={20} color="var(--al-accent, #e8ddd0)" />
+                </span>
                 <span>ATENDIMENTO URGENTE 24H</span>
               </div>
 
               <h3>
-                Defesa Técnica, <br />
-                Estratégica e <br />
+                Defesa Técnica,
+                <br />
+                Estratégica e
+                <br />
                 Personalizada.
               </h3>
 
@@ -149,9 +164,9 @@ export default function Hero() {
 
               <div className={styles.cardItems}>
                 <div className={styles.cardItem}>
-                  <div className={styles.itemIcon}>
-                    <Phone size={18} />
-                  </div>
+                  <span className={styles.itemIcon}>
+                    <Phone size={18} color="var(--al-accent, #e8ddd0)" />
+                  </span>
                   <div>
                     <strong>Contato Direto</strong>
                     <span>Plantão via WhatsApp</span>
@@ -159,9 +174,9 @@ export default function Hero() {
                 </div>
 
                 <div className={styles.cardItem}>
-                  <div className={styles.itemIcon}>
-                    <MapPin size={18} />
-                  </div>
+                  <span className={styles.itemIcon}>
+                    <MapPin size={18} color="var(--al-accent, #e8ddd0)" />
+                  </span>
                   <div>
                     <strong>Localização</strong>
                     <span>Porto Alegre e Região Metropolitana</span>
@@ -169,9 +184,9 @@ export default function Hero() {
                 </div>
 
                 <div className={styles.cardItem}>
-                  <div className={styles.itemIcon}>
-                    <Clock3 size={18} />
-                  </div>
+                  <span className={styles.itemIcon}>
+                    <Clock3 size={18} color="var(--al-accent, #e8ddd0)" />
+                  </span>
                   <div>
                     <strong>Agilidade</strong>
                     <span>Pronta resposta para prisões e flagrantes</span>
@@ -191,34 +206,20 @@ export default function Hero() {
             </div>
           </div>
         </motion.div>
-      </div>
 
-      {/* ================= BOTTOM BAR (FLUTUANTE) ================= */}
-      <div className={styles.bottomBarContainer}>
-        <div className={styles.bottomBar}>
-          <div className={styles.bottomItem}>
-            <span className={styles.itemTag}>01</span>
-            <div>
-              <strong>Atuação Imediata</strong>
-              <span>Resposta rápida para casos urgentes e flagrantes.</span>
-            </div>
-          </div>
-
-          <div className={styles.bottomItem}>
-            <span className={styles.itemTag}>02</span>
-            <div>
-              <strong>Direito Penal</strong>
-              <span>Defesa técnica focada na garantia dos seus direitos.</span>
-            </div>
-          </div>
-
-          <div className={styles.bottomItem}>
-            <span className={styles.itemTag}>03</span>
-            <div>
-              <strong>Atendimento Regional</strong>
-              <span>Atuação presencial em Porto Alegre e consultas online.</span>
-            </div>
-          </div>
+        {/* BOTTOM BAR */}
+        <div className={styles.bottomBarContainer}>
+          <ul className={styles.bottomBar}>
+            {bottomItems.map(({ tag, title, description }) => (
+              <li className={styles.bottomItem} key={tag}>
+                <span className={styles.itemTag}>{tag}</span>
+                <div>
+                  <strong>{title}</strong>
+                  <span>{description}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

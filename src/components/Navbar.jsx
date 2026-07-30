@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MessageCircle } from "lucide-react";
 import styles from "./Navbar.module.css";
-import logo from "@/assets/logo.png.asset.json";
+import logo from "../assets/images/logo.png";
 import { WHATSAPP_URL } from "@/utils/whatsapp";
 
 const links = [
@@ -89,7 +89,7 @@ export default function Navbar() {
       >
         <div className={styles.inner}>
           <button onClick={() => go("home")} className={styles.brand} aria-label="Início">
-            <img src={logo.url} alt="Dr. André Albani Lara" className={styles.logo} />
+            <img src={logo} alt="Dr. André Albani Lara" className={styles.logo} />
             <span className={styles.brandText}>
               <span className={styles.brandName}>André Albani Lara</span>
               <span className={styles.brandTag}>Advocacia Criminal</span>

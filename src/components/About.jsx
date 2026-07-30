@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import styles from "./About.module.css";
-import institutional from "@/assets/institutional.jpg.asset.json";
+import dr_andre from "../assets/images/dr.andre.png";
 
 const pillars = [
   "Atuação técnica",
@@ -32,7 +32,7 @@ export default function About() {
         <motion.div className={styles.imageWrap} {...fade}>
           <span className={styles.frame} />
           <img
-            src={institutional.url}
+            src={dr_andre}
             alt="Atendimento jurídico do escritório Albani Lara"
             className={styles.image}
             loading="lazy"
