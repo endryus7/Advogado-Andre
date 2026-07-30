@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 import {
   MessageCircle,
   Clock,
@@ -7,10 +8,20 @@ import {
   MapPin,
   Send,
   Loader2,
+  User,
+  Phone,
+  Mail,
+  ShieldCheck,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 import styles from "./Contact.module.css";
-import { WHATSAPP_NUMBER } from "@/utils/whatsapp";
-import { services } from "@/data/content";
+import { services, practiceAreas } from "@/data/content";
+import { WHATSAPP_URL } from "@/utils/whatsapp";
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const infos = [
   { icon: MessageCircle, title: "WhatsApp", text: "+55 51 9260-5349" },
@@ -19,10 +30,12 @@ const infos = [
   { icon: MapPin, title: "Local", text: "Porto Alegre e Região" },
 ];
 
-const subjects = [...services.map((s) => s.title), "Outro assunto"];
+const otherAreas = practiceAreas
+  .filter((area) => area.category !== "Direito Criminal")
+  .map((area) => area.category);
 
-// DDDs oficialmente válidos no Brasil (ANATEL). Fora dessa lista, o número
-// não existe, mesmo que a formatação esteja correta.
+const subjects = [...services.map((s) => s.title), ...otherAreas, "Outro assunto"];
+
 const VALID_DDDS = new Set([
   11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35,
   37, 38, 41, 42, 43, 44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64,
@@ -74,7 +87,7 @@ export default function Contact() {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
-  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
 
   const setField = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -92,7 +105,7 @@ export default function Contact() {
     setField("phone", formatBrazilPhone(value));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const nextErrors = Object.fromEntries(
@@ -107,24 +120,40 @@ export default function Contact() {
       return;
     }
 
-    setSubmitting(true);
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      // Credenciais do EmailJS não configuradas neste ambiente (.env ausente).
+      console.error(
+        "EmailJS não configurado: defina VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID e VITE_EMAILJS_PUBLIC_KEY.",
+      );
+      setStatus("error");
+      return;
+    }
 
-    const text = [
-      `Olá, Dr. André Albani Lara. Meu nome é ${form.name}.`,
-      `Assunto: ${form.subject}`,
-      `Telefone: ${form.phone}`,
-      `E-mail: ${form.email}`,
-      "",
-      form.message,
-    ].join("\n");
+    setStatus("submitting");
 
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          to_name: "Dr. André Albani Lara",
+          from_name: form.name,
+          from_email: form.email,
+          phone: form.phone,
+          subject: form.subject,
+          message: form.message,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      );
 
-    setForm(initialForm);
-    setTouched({});
-    setErrors({});
-    setSubmitting(false);
+      setStatus("success");
+      setForm(initialForm);
+      setTouched({});
+      setErrors({});
+    } catch (err) {
+      console.error("Falha ao enviar formulário via EmailJS:", err);
+      setStatus("error");
+    }
   };
 
   return (
@@ -162,27 +191,50 @@ export default function Contact() {
           </span>
           <h3 className={styles.cardTitle}>Solicite uma análise do seu caso</h3>
           <p className={styles.cardText}>
-            Preencha os dados abaixo. Seu contato será enviado diretamente pelo
-            WhatsApp, com atendimento sigiloso e realizado pelo próprio advogado.
+            Preencha os dados abaixo. Sua mensagem será enviada diretamente por
+            e-mail para o advogado, com atendimento sigiloso.
           </p>
+          <span className={styles.requiredNote}>* Todos os campos são obrigatórios</span>
+
+          {status === "success" && (
+            <p className={styles.statusSuccess} role="status">
+              <CheckCircle2 size={18} aria-hidden="true" />
+              Mensagem enviada com sucesso! O Dr. André Albani Lara entrará em
+              contato em breve.
+            </p>
+          )}
+
+          {status === "error" && (
+            <p className={styles.statusError} role="alert">
+              <AlertCircle size={18} aria-hidden="true" />
+              Não foi possível enviar agora. Tente novamente ou{" "}
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                fale pelo WhatsApp
+              </a>
+              .
+            </p>
+          )}
 
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className={styles.field}>
               <label htmlFor="contact-name">
                 Nome completo <span aria-hidden="true">*</span>
               </label>
-              <input
-                id="contact-name"
-                name="name"
-                type="text"
-                autoComplete="name"
-                required
-                value={form.name}
-                onChange={(e) => setField("name", e.target.value)}
-                onBlur={() => handleBlur("name")}
-                aria-invalid={Boolean(errors.name)}
-                aria-describedby={errors.name ? "contact-name-error" : undefined}
-              />
+              <div className={styles.inputWrap}>
+                <User size={17} aria-hidden="true" />
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  value={form.name}
+                  onChange={(e) => setField("name", e.target.value)}
+                  onBlur={() => handleBlur("name")}
+                  aria-invalid={Boolean(errors.name)}
+                  aria-describedby={errors.name ? "contact-name-error" : undefined}
+                />
+              </div>
               {touched.name && errors.name && (
                 <span id="contact-name-error" className={styles.error} role="alert">
                   {errors.name}
@@ -195,20 +247,23 @@ export default function Contact() {
                 <label htmlFor="contact-phone">
                   Telefone (WhatsApp) <span aria-hidden="true">*</span>
                 </label>
-                <input
-                  id="contact-phone"
-                  name="phone"
-                  type="tel"
-                  inputMode="numeric"
-                  autoComplete="tel"
-                  placeholder="(51) 99260-5349"
-                  required
-                  value={form.phone}
-                  onChange={(e) => handlePhoneChange(e.target.value)}
-                  onBlur={() => handleBlur("phone")}
-                  aria-invalid={Boolean(errors.phone)}
-                  aria-describedby={errors.phone ? "contact-phone-error" : undefined}
-                />
+                <div className={styles.inputWrap}>
+                  <Phone size={17} aria-hidden="true" />
+                  <input
+                    id="contact-phone"
+                    name="phone"
+                    type="tel"
+                    inputMode="numeric"
+                    autoComplete="tel"
+                    placeholder="(51) 99260-5349"
+                    required
+                    value={form.phone}
+                    onChange={(e) => handlePhoneChange(e.target.value)}
+                    onBlur={() => handleBlur("phone")}
+                    aria-invalid={Boolean(errors.phone)}
+                    aria-describedby={errors.phone ? "contact-phone-error" : undefined}
+                  />
+                </div>
                 {touched.phone && errors.phone && (
                   <span id="contact-phone-error" className={styles.error} role="alert">
                     {errors.phone}
@@ -220,18 +275,21 @@ export default function Contact() {
                 <label htmlFor="contact-email">
                   E-mail <span aria-hidden="true">*</span>
                 </label>
-                <input
-                  id="contact-email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={form.email}
-                  onChange={(e) => setField("email", e.target.value)}
-                  onBlur={() => handleBlur("email")}
-                  aria-invalid={Boolean(errors.email)}
-                  aria-describedby={errors.email ? "contact-email-error" : undefined}
-                />
+                <div className={styles.inputWrap}>
+                  <Mail size={17} aria-hidden="true" />
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={form.email}
+                    onChange={(e) => setField("email", e.target.value)}
+                    onBlur={() => handleBlur("email")}
+                    aria-invalid={Boolean(errors.email)}
+                    aria-describedby={errors.email ? "contact-email-error" : undefined}
+                  />
+                </div>
                 {touched.email && errors.email && (
                   <span id="contact-email-error" className={styles.error} role="alert">
                     {errors.email}
@@ -292,14 +350,24 @@ export default function Contact() {
               )}
             </div>
 
-            <button type="submit" className={styles.cardBtn} disabled={submitting}>
-              {submitting ? (
+            <button
+              type="submit"
+              className={styles.cardBtn}
+              disabled={status === "submitting"}
+            >
+              {status === "submitting" ? (
                 <Loader2 size={20} className={styles.spin} />
               ) : (
                 <Send size={20} />
               )}
-              Enviar pelo WhatsApp
+              {status === "submitting" ? "Enviando..." : "Enviar por E-mail"}
             </button>
+
+            <p className={styles.privacyNote}>
+              <ShieldCheck size={14} aria-hidden="true" />
+              Seus dados são usados exclusivamente para retorno do contato e
+              tratados com confidencialidade, em conformidade com a LGPD.
+            </p>
           </form>
         </motion.div>
       </div>

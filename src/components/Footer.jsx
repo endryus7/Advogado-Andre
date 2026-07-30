@@ -7,6 +7,7 @@ import { INSTAGRAM_URL, WHATSAPP_URL } from "@/utils/whatsapp";
 const navLinks = [
   { id: "home", label: "Início" },
   { id: "about", label: "Sobre" },
+  { id: "areas", label: "Áreas de Atuação" },
   { id: "services", label: "Serviços" },
   { id: "process", label: "Como Funciona" },
   { id: "videos", label: "Vídeos" },

@@ -150,6 +150,55 @@
   margin: 0;
 }
 
+.requiredNote {
+  position: relative;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: -8px;
+}
+
+.statusSuccess,
+.statusError {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.statusSuccess {
+  background: rgba(120, 200, 150, 0.14);
+  border: 1px solid rgba(120, 200, 150, 0.35);
+  color: #bdeccd;
+}
+
+.statusSuccess svg {
+  color: #7fd9a0;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.statusError {
+  background: rgba(226, 163, 163, 0.14);
+  border: 1px solid rgba(226, 163, 163, 0.35);
+  color: #f3c9c9;
+}
+
+.statusError svg {
+  color: #e2a3a3;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.statusError a {
+  color: var(--al-accent);
+  text-decoration: underline;
+}
+
 .form {
   position: relative;
   display: flex;
@@ -180,7 +229,6 @@
   color: var(--al-accent);
 }
 
-.field input,
 .field select,
 .field textarea {
   width: 100%;
@@ -192,6 +240,47 @@
   font-family: inherit;
   font-size: 0.92rem;
   transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  padding: 0 14px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.inputWrap svg {
+  flex-shrink: 0;
+  color: var(--al-accent);
+  opacity: 0.85;
+}
+
+.inputWrap input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  padding: 12px 0;
+  color: var(--al-white);
+  font-family: inherit;
+  font-size: 0.92rem;
+}
+
+.inputWrap input:focus {
+  outline: none;
+}
+
+.inputWrap:has(input:focus) {
+  border-color: var(--al-accent);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.inputWrap:has(input[aria-invalid="true"]) {
+  border-color: #e2a3a3;
 }
 
 .field select {
@@ -213,7 +302,6 @@
   color: rgba(255, 255, 255, 0.35);
 }
 
-.field input:focus,
 .field select:focus,
 .field textarea:focus {
   outline: none;
@@ -221,7 +309,6 @@
   background: rgba(255, 255, 255, 0.09);
 }
 
-.field input[aria-invalid="true"],
 .field select[aria-invalid="true"],
 .field textarea[aria-invalid="true"] {
   border-color: #e2a3a3;
@@ -277,6 +364,24 @@
 .cardBtn:disabled {
   opacity: 0.7;
   cursor: wait;
+}
+
+.privacyNote {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.privacyNote svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--al-accent);
+  opacity: 0.7;
 }
 
 @media (max-width: 960px) {

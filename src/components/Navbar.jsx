@@ -1,13 +1,15 @@
+
+
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X, Mail } from "lucide-react";
 import styles from "./Navbar.module.css";
-import logo from "../assets/images/logo.png";
-import { WHATSAPP_URL } from "@/utils/whatsapp";
+import logo from "@/assets/images/logo.png";
 
 const links = [
   { id: "home", label: "Início" },
-  { id: "sobre", label: "Sobre" },
+  { id: "about", label: "Sobre" },
+  { id: "areas", label: "Áreas" },
   { id: "services", label: "Serviços" },
   { id: "process", label: "Como Funciona" },
   { id: "videos", label: "Vídeos" },
@@ -23,13 +25,19 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
+
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+
     if (open) {
       closeRef.current?.focus();
     } else {
@@ -48,9 +56,10 @@ export default function Navbar() {
 
       if (e.key === "Tab" && panelRef.current) {
         const focusable = panelRef.current.querySelectorAll(
-          'button, a[href], [tabindex]:not([tabindex="-1"])'
+          'button, a[href], [tabindex]:not([tabindex="-1"])',
         );
-        if (focusable.length === 0) return;
+
+        if (!focusable.length) return;
 
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
@@ -58,7 +67,9 @@ export default function Navbar() {
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
+        }
+
+        if (!e.shiftKey && document.activeElement === last) {
           e.preventDefault();
           first.focus();
         }
@@ -66,63 +77,71 @@ export default function Navbar() {
     };
 
     document.addEventListener("keydown", onKeyDown);
+
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  const go = (id) => {
-    setOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      const headerOffset = 80;
-      const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+const go = (id) => {
+  setOpen(false);
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-  };
+  setTimeout(() => {
+    const el = document.getElementById(id);
+
+    if (!el) return;
+
+    const headerOffset = 90;
+
+    const top =
+      el.getBoundingClientRect().top +
+      window.scrollY -
+      headerOffset;
+
+    window.scrollTo({
+      top,
+      behavior: "smooth",
+    });
+  }, 300);
+};
 
   return (
     <>
       <motion.header
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+        }}
         className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
       >
         <div className={styles.inner}>
-          <button onClick={() => go("home")} className={styles.brand} aria-label="Início">
+          <button onClick={ () => go("home")}  className={styles.brand} aria-label="Ir para início">
             <img src={logo} alt="Dr. André Albani Lara" className={styles.logo} />
+
             <span className={styles.brandText}>
               <span className={styles.brandName}>André Albani Lara</span>
+
               <span className={styles.brandTag}>Advocacia Criminal</span>
             </span>
           </button>
 
-          <nav aria-label="Navegação principal">
+          <nav className={styles.nav} aria-label="Navegação principal">
             <ul className={styles.menu}>
-              {links.map((l) => (
-                <li key={l.id}>
-                  <button className={styles.link} onClick={() => go(l.id)}>
-                    {l.label}
+              {links.map((item) => (
+                <li key={item.id}>
+                  <button className={styles.link} onClick={() => go(item.id)}>
+                    {item.label}
                   </button>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.cta}
-            aria-label="Fale no WhatsApp"
-          >
-            <MessageCircle size={16} />
-            <span>Fale no WhatsApp</span>
-          </a>
+          <button onClick={() => go("contact")} className={styles.cta}>
+            <Mail size={17} />
+            Entrar em Contato
+            
+          </button>
 
           <button
             ref={burgerRef}
@@ -132,25 +151,27 @@ export default function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
           >
-            <Menu size={26} />
+            <Menu size={28} />
           </button>
         </div>
       </motion.header>
-
       <AnimatePresence>
         {open && (
           <div className={styles.mobileWrapper}>
-            {/* Overlay escuro de fundo (fecha ao clicar fora) */}
+            {/* Backdrop */}
+
             <motion.div
               className={styles.backdrop}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
               onClick={() => setOpen(false)}
             />
 
-            {/* Painel latera (Drawer) */}
-            <motion.div
+            {/* Drawer */}
+
+            <motion.aside
               id="mobile-menu"
               ref={panelRef}
               role="dialog"
@@ -160,16 +181,23 @@ export default function Navbar() {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              transition={{
+                type: "spring",
+                damping: 26,
+                stiffness: 230,
+              }}
             >
               <div className={styles.mobileHead}>
                 <div className={styles.brand}>
                   <img src={logo} alt="" className={styles.logo} />
+
                   <span className={styles.brandText}>
                     <span className={styles.brandName}>André Albani Lara</span>
+
                     <span className={styles.brandTag}>Advocacia Criminal</span>
                   </span>
                 </div>
+
                 <button
                   ref={closeRef}
                   className={styles.mobileClose}
@@ -180,28 +208,27 @@ export default function Navbar() {
                 </button>
               </div>
 
+              <div className={styles.mobileDescription}>
+                Atendimento jurídico especializado em Direito Penal e Processo Penal.
+              </div>
+
               <ul className={styles.mobileMenu}>
-                {links.map((l) => (
-                  <li key={l.id}>
-                    <button className={styles.mobileLink} onClick={() => go(l.id)}>
-                      {l.label}
+                {links.map((item) => (
+                  <li key={item.id}>
+                    <button className={styles.mobileLink} onClick={() => go(item.id)}>
+                      {item.label}
                     </button>
                   </li>
                 ))}
               </ul>
 
               <div className={styles.mobileFooter}>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.mobileCta}
-                >
-                  <MessageCircle size={18} />
-                  <span>Atendimento Via WhatsApp</span>
-                </a>
+                <button className={styles.mobileCta} onClick={() => go("contact")}>
+                  <Mail size={18} />
+                  Entrar em Contato
+                </button>
               </div>
-            </motion.div>
+            </motion.aside>
           </div>
         )}
       </AnimatePresence>

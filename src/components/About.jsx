@@ -68,6 +68,8 @@ export default function About() {
               </div>
             ))}
           </div>
+
+          <span className={styles.credential}>OAB/RS Nº 141.174</span>
         </motion.div>
       </div>
     </section>
