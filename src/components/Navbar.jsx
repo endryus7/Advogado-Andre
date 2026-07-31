@@ -1,5 +1,3 @@
-
-
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Mail } from "lucide-react";
@@ -81,26 +79,20 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+const scrollToSection = (id) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const headerOffset = 90;
+  const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+  window.scrollTo({ top, behavior: "smooth" });
+};
+
 const go = (id) => {
   setOpen(false);
-
-  setTimeout(() => {
-    const el = document.getElementById(id);
-
-    if (!el) return;
-
-    const headerOffset = 90;
-
-    const top =
-      el.getBoundingClientRect().top +
-      window.scrollY -
-      headerOffset;
-
-    window.scrollTo({
-      top,
-      behavior: "smooth",
-    });
-  }, 300);
+  document.body.style.overflow = "";
+  scrollToSection(id);
 };
 
   return (
