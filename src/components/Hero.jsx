@@ -54,7 +54,7 @@ export default function Hero() {
   // scroll
   const handleScrollToAbout = (e) => {
     e.preventDefault();
-    const section = document.getElementById("sobre");
+    const section = document.getElementById("about");
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
@@ -118,7 +118,7 @@ export default function Hero() {
 
             <Button
               as="a"
-              href="#sobre"
+              href="#about"
               onClick={handleScrollToAbout}
               variant="ghostLight"
               className={styles.secondaryBtn}

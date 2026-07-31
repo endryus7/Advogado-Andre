@@ -37,10 +37,9 @@ const otherAreas = practiceAreas
 const subjects = [...services.map((s) => s.title), ...otherAreas, "Outro assunto"];
 
 const VALID_DDDS = new Set([
-  11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35,
-  37, 38, 41, 42, 43, 44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64,
-  65, 66, 67, 68, 69, 71, 73, 74, 75, 77, 79, 81, 82, 83, 84, 85, 86, 87, 88,
-  89, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+  11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35, 37, 38, 41, 42, 43,
+  44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64, 65, 66, 67, 68, 69, 71, 73, 74, 75, 77,
+  79, 81, 82, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99,
 ]);
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -161,25 +160,51 @@ export default function Contact() {
       <div className={styles.container}>
         <motion.div className={styles.left} {...fade}>
           <span className={styles.eyebrow}>Contato</span>
-          <h2 className={styles.title}>Atendimento direto e sigiloso</h2>
+
+          <h2 className={styles.title}>Atendimento direto, estratégico e totalmente sigiloso</h2>
+
           <p className={styles.intro}>
-            Precisa de orientação jurídica urgente? Preencha o formulário ao lado para
-            uma análise inicial do seu caso.
+            Precisa de orientação jurídica urgente? Entre em contato para uma análise inicial do seu
+            caso. Cada situação recebe atenção individual, com absoluto sigilo e comprometimento.
           </p>
+
+          <ul className={styles.highlights}>
+            <li>
+              <CheckCircle2 size={18} />
+              Atendimento rápido e personalizado.
+            </li>
+
+            <li>
+              <ShieldCheck size={18} />
+              Sigilo absoluto durante todo o atendimento.
+            </li>
+
+            <li>
+              <Clock size={18} />
+              Retorno em poucas horas úteis.
+            </li>
+          </ul>
+
+          <div className={styles.divider} />
+
+          <div className={styles.infoHeader}>
+            <span>Informações de Atendimento</span>
+          </div>
 
           <div className={styles.infoGrid}>
             {infos.map((i) => {
               const Icon = i.icon;
               return (
-                <div key={i.title} className={styles.info}>
-                  <span className={styles.infoIcon}>
-                    <Icon size={20} strokeWidth={1.6} />
-                  </span>
-                  <div>
+                <article key={i.title} className={styles.info}>
+                  <div className={styles.infoIcon}>
+                    <Icon size={22} strokeWidth={1.7} />
+                  </div>
+
+                  <div className={styles.infoContent}>
                     <h3 className={styles.infoTitle}>{i.title}</h3>
                     <p className={styles.infoText}>{i.text}</p>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
@@ -191,16 +216,15 @@ export default function Contact() {
           </span>
           <h3 className={styles.cardTitle}>Solicite uma análise do seu caso</h3>
           <p className={styles.cardText}>
-            Preencha os dados abaixo. Sua mensagem será enviada diretamente por
-            e-mail para o advogado, com atendimento sigiloso.
+            Preencha os dados abaixo. Sua mensagem será enviada diretamente por e-mail para o
+            advogado, com atendimento sigiloso.
           </p>
           <span className={styles.requiredNote}>* Todos os campos são obrigatórios</span>
 
           {status === "success" && (
             <p className={styles.statusSuccess} role="status">
               <CheckCircle2 size={18} aria-hidden="true" />
-              Mensagem enviada com sucesso! O Dr. André Albani Lara entrará em
-              contato em breve.
+              Mensagem enviada com sucesso! O Dr. André Albani Lara entrará em contato em breve.
             </p>
           )}
 
@@ -245,10 +269,11 @@ export default function Contact() {
             <div className={styles.row}>
               <div className={styles.field}>
                 <label htmlFor="contact-phone">
-                  Telefone (WhatsApp) <span aria-hidden="true">*</span>
+                  Telefone (WhatsApp) <span>*</span>
                 </label>
+
                 <div className={styles.inputWrap}>
-                  <Phone size={17} aria-hidden="true" />
+                  <Phone size={17} />
                   <input
                     id="contact-phone"
                     name="phone"
@@ -261,22 +286,21 @@ export default function Contact() {
                     onChange={(e) => handlePhoneChange(e.target.value)}
                     onBlur={() => handleBlur("phone")}
                     aria-invalid={Boolean(errors.phone)}
-                    aria-describedby={errors.phone ? "contact-phone-error" : undefined}
                   />
                 </div>
+
                 {touched.phone && errors.phone && (
-                  <span id="contact-phone-error" className={styles.error} role="alert">
-                    {errors.phone}
-                  </span>
+                  <span className={styles.error}>{errors.phone}</span>
                 )}
               </div>
 
               <div className={styles.field}>
                 <label htmlFor="contact-email">
-                  E-mail <span aria-hidden="true">*</span>
+                  E-mail <span>*</span>
                 </label>
+
                 <div className={styles.inputWrap}>
-                  <Mail size={17} aria-hidden="true" />
+                  <Mail size={17} />
                   <input
                     id="contact-email"
                     name="email"
@@ -287,13 +311,11 @@ export default function Contact() {
                     onChange={(e) => setField("email", e.target.value)}
                     onBlur={() => handleBlur("email")}
                     aria-invalid={Boolean(errors.email)}
-                    aria-describedby={errors.email ? "contact-email-error" : undefined}
                   />
                 </div>
+
                 {touched.email && errors.email && (
-                  <span id="contact-email-error" className={styles.error} role="alert">
-                    {errors.email}
-                  </span>
+                  <span className={styles.error}>{errors.email}</span>
                 )}
               </div>
             </div>
@@ -350,11 +372,7 @@ export default function Contact() {
               )}
             </div>
 
-            <button
-              type="submit"
-              className={styles.cardBtn}
-              disabled={status === "submitting"}
-            >
+            <button type="submit" className={styles.cardBtn} disabled={status === "submitting"}>
               {status === "submitting" ? (
                 <Loader2 size={20} className={styles.spin} />
               ) : (
@@ -365,8 +383,8 @@ export default function Contact() {
 
             <p className={styles.privacyNote}>
               <ShieldCheck size={14} aria-hidden="true" />
-              Seus dados são usados exclusivamente para retorno do contato e
-              tratados com confidencialidade, em conformidade com a LGPD.
+              Seus dados são usados exclusivamente para retorno do contato e tratados com
+              confidencialidade, em conformidade com a LGPD.
             </p>
           </form>
         </motion.div>

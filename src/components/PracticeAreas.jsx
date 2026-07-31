@@ -6,10 +6,10 @@ import SectionTitle from "./SectionTitle";
 import { practiceAreas } from "@/data/content";
 
 export default function PracticeAreas() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(null);
 
   const toggle = (index) => {
-    setOpenIndex((current) => (current === index ? -1 : index));
+    setOpenIndex((current) => (current === index ? null : index));
   };
 
   return (
