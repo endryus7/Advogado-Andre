@@ -117,7 +117,7 @@ export const practiceAreas = [
     items: [
       "Repetição de Indébito Tributário e Isenção",
       "Isenção de Imposto sobre a Propriedade de Veículo Automotor (IPVA) e Imposto de Renda (IR)",
-      "Repetição de indébito de Imposto sobre Transmissão de bens imóveis (ITBI), IPVA e demais impostos.",
+      "Repetição de indébito de Imposto sobre Transmissão de bens imóveis (ITBI), IPVA e demais impostos",
     ],
   },
 ];
