@@ -251,6 +251,7 @@ export default function Contact() {
                   name="name"
                   type="text"
                   autoComplete="name"
+                  placeholder="Nome completo"
                   required
                   value={form.name}
                   onChange={(e) => setField("name", e.target.value)}
@@ -306,6 +307,7 @@ export default function Contact() {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    placeholder="email@exemplo.com"
                     required
                     value={form.email}
                     onChange={(e) => setField("email", e.target.value)}
