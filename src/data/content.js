@@ -92,6 +92,9 @@ export const practiceAreas = [
       "Crimes Licitatórios",
       "Lei de Drogas",
       "Extradição Ativa e Passiva",
+      "Prisão em Flagrante",
+      "Audiência de Custódia",
+      "Habeas Corpus",
     ],
   },
   {
