@@ -116,8 +116,8 @@ export const practiceAreas = [
     category: "Direito Tributário",
     items: [
       "Repetição de Indébito Tributário e Isenção",
-      // Lista possivelmente incompleta — a imagem de origem cortava aqui.
-      // Adicione os demais itens se houver.
+      "Isenção de Imposto sobre a Propriedade de Veículo Automotor (IPVA) e Imposto de Renda (IR)",
+      "Repetição de indébito de Imposto sobre Transmissão de bens imóveis (ITBI), IPVA e demais impostos.",
     ],
   },
 ];
