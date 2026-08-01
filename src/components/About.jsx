@@ -41,14 +41,13 @@ export default function About() {
 
         <motion.div className={styles.content} {...fade}>
           <span className={styles.eyebrow}>Sobre o Advogado</span>
-          <h2 className={styles.title}>
-            Compromisso com sua liberdade e seus direitos.
-          </h2>
+          <h2 className={styles.title}>Compromisso com sua liberdade e seus direitos.</h2>
           <p className={styles.description}>
-            Dr. André Albani Lara atua na advocacia criminal com foco em Direito Penal
-            e Direito Processual Penal. Cada caso é conduzido com técnica, discrição
-            e proximidade reunindo estratégia jurídica apurada e atendimento próximo
-            ao cliente em todas as etapas do processo.
+            Dr. André Albani Lara atua na advocacia criminal com foco em Direito Penal e Direito
+            Processual Penal. Possui formação pela Fundação Escola Superior do Ministério Público
+            (FMP). Pós-graduando em Direito Penal e Processo Penal pela FMP. Tem como princípio
+            conduzir cada caso com técnica, discrição e proximidade reunindo estratégia jurídica
+            apurada e atendimento próximo ao cliente em todas as etapas do processo.
           </p>
 
           <ul className={styles.pillars}>
