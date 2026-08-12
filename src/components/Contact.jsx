@@ -24,11 +24,13 @@ const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 // TESTE DO EMAIL.JS
+/*
 console.log("EMAILJS CONFIG:", {
   service: EMAILJS_SERVICE_ID ? "OK" : "MISSING",
   template: EMAILJS_TEMPLATE_ID ? "OK" : "MISSING",
   publicKey: EMAILJS_PUBLIC_KEY ? "OK" : "MISSING",
 });
+*/
 
 const infos = [
   { icon: MessageCircle, title: "WhatsApp", text: "+55 51 9260-5349" },
@@ -158,11 +160,12 @@ export default function Contact() {
       setErrors({});
       // TESTE DO EMAIL.JS
     } catch (err) {
+      /*
       console.error("❌ ERRO EMAILJS");
       console.error("Status:", err?.status);
       console.error("Mensagem:", err?.text);
       console.error("Erro completo:", err);
-
+      */
       setStatus("error");
     }
   };
