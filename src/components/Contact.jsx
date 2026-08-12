@@ -23,6 +23,13 @@ const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+// TESTE DO EMAIL.JS
+console.log("EMAILJS CONFIG:", {
+  service: EMAILJS_SERVICE_ID ? "OK" : "MISSING",
+  template: EMAILJS_TEMPLATE_ID ? "OK" : "MISSING",
+  publicKey: EMAILJS_PUBLIC_KEY ? "OK" : "MISSING",
+});
+
 const infos = [
   { icon: MessageCircle, title: "WhatsApp", text: "+55 51 9260-5349" },
   { icon: Clock, title: "Atendimento", text: "Imediato para casos urgentes" },
@@ -37,10 +44,9 @@ const otherAreas = practiceAreas
 const subjects = [...services.map((s) => s.title), ...otherAreas, "Outro assunto"];
 
 const VALID_DDDS = new Set([
-  11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35,
-  37, 38, 41, 42, 43, 44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64,
-  65, 66, 67, 68, 69, 71, 73, 74, 75, 77, 79, 81, 82, 83, 84, 85, 86, 87, 88,
-  89, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+  11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35, 37, 38, 41, 42, 43,
+  44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64, 65, 66, 67, 68, 69, 71, 73, 74, 75, 77,
+  79, 81, 82, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99,
 ]);
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -150,8 +156,13 @@ export default function Contact() {
       setForm(initialForm);
       setTouched({});
       setErrors({});
+      // TESTE DO EMAIL.JS
     } catch (err) {
-      console.error("Falha ao enviar formulário via EmailJS:", err);
+      console.error("❌ ERRO EMAILJS");
+      console.error("Status:", err?.status);
+      console.error("Mensagem:", err?.text);
+      console.error("Erro completo:", err);
+
       setStatus("error");
     }
   };
@@ -163,8 +174,8 @@ export default function Contact() {
           <span className={styles.eyebrow}>Contato</span>
           <h2 className={styles.title}>Atendimento direto e sigiloso</h2>
           <p className={styles.intro}>
-            Precisa de orientação jurídica urgente? Preencha o formulário ao lado para
-            uma análise inicial do seu caso.
+            Precisa de orientação jurídica urgente? Preencha o formulário ao lado para uma análise
+            inicial do seu caso.
           </p>
 
           <div className={styles.infoGrid}>
@@ -191,16 +202,15 @@ export default function Contact() {
           </span>
           <h3 className={styles.cardTitle}>Solicite uma análise do seu caso</h3>
           <p className={styles.cardText}>
-            Preencha os dados abaixo. Sua mensagem será enviada diretamente por
-            e-mail para o advogado, com atendimento sigiloso.
+            Preencha os dados abaixo. Sua mensagem será enviada diretamente por e-mail para o
+            advogado, com atendimento sigiloso.
           </p>
           <span className={styles.requiredNote}>* Todos os campos são obrigatórios</span>
 
           {status === "success" && (
             <p className={styles.statusSuccess} role="status">
               <CheckCircle2 size={18} aria-hidden="true" />
-              Mensagem enviada com sucesso! O Dr. André Albani Lara entrará em
-              contato em breve.
+              Mensagem enviada com sucesso! O Dr. André Albani Lara entrará em contato em breve.
             </p>
           )}
 
@@ -352,11 +362,7 @@ export default function Contact() {
               )}
             </div>
 
-            <button
-              type="submit"
-              className={styles.cardBtn}
-              disabled={status === "submitting"}
-            >
+            <button type="submit" className={styles.cardBtn} disabled={status === "submitting"}>
               {status === "submitting" ? (
                 <Loader2 size={20} className={styles.spin} />
               ) : (
@@ -367,8 +373,8 @@ export default function Contact() {
 
             <p className={styles.privacyNote}>
               <ShieldCheck size={14} aria-hidden="true" />
-              Seus dados são usados exclusivamente para retorno do contato e
-              tratados com confidencialidade, em conformidade com a LGPD.
+              Seus dados são usados exclusivamente para retorno do contato e tratados com
+              confidencialidade, em conformidade com a LGPD.
             </p>
           </form>
         </motion.div>
