@@ -3,6 +3,7 @@
   background: var(--al-white);
 }
 
+/* Duas colunas */
 .container {
   max-width: 1280px;
   margin: 0 auto;
@@ -27,9 +28,10 @@
   border-radius: 2px;
   box-shadow: var(--al-shadow-md);
   position: relative;
-  z-index: 2;
+  z-index: 2; /* fica acima do .frame decorativo */
 }
 
+/* Moldura deslocada atrás da foto */
 .frame {
   position: absolute;
   top: 24px;
@@ -41,6 +43,7 @@
   z-index: 1;
 }
 
+/* Selo de destaque flutuante sobre a imagem  */
 .stat {
   position: absolute;
   bottom: -32px;
@@ -84,6 +87,7 @@
   gap: 12px;
 }
 
+/* Traço decorativo antes do texto do eyebrow */
 .eyebrow::before {
   content: "";
   width: 40px;
@@ -106,6 +110,7 @@
   max-width: 560px;
 }
 
+/* Lista de pilares em grid 2 colunas */
 .pillars {
   list-style: none;
   padding: 0;
@@ -126,9 +131,10 @@
 
 .pillars svg {
   color: var(--al-accent);
-  flex-shrink: 0;
+  flex-shrink: 0; 
 }
 
+/* Bloco de indicadores em 4 colunas */
 .indicators {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -158,6 +164,7 @@
   color: var(--al-text-light);
 }
 
+/* Tablet/mobile */
 @media (max-width: 960px) {
   .container {
     grid-template-columns: 1fr;

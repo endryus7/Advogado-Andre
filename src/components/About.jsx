@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import styles from "./About.module.css";
 import dr_andre from "../assets/images/dr.andre.png";
 
+// Listas de conteúdo fixas do componente
 const pillars = [
   "Atuação técnica",
   "Atendimento humanizado",
@@ -18,6 +19,7 @@ const indicators = [
   { title: "Direito Penal", label: "Especialidade" },
 ];
 
+// Configuração de animação compartilhada entre imagem e conteúdo
 const fade = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -25,11 +27,13 @@ const fade = {
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
 };
 
+// Seção Sobre o Advogado
 export default function About() {
   return (
     <section id="about" className={styles.about}>
       <div className={styles.container}>
         <motion.div className={styles.imageWrap} {...fade}>
+          {/* Moldura decorativa atrás da foto */}
           <span className={styles.frame} />
           <img
             src={dr_andre}
@@ -50,6 +54,7 @@ export default function About() {
             apurada e atendimento próximo ao cliente em todas as etapas do processo.
           </p>
 
+          {/* Lista de pilares */}
           <ul className={styles.pillars}>
             {pillars.map((p) => (
               <li key={p}>
@@ -59,6 +64,7 @@ export default function About() {
             ))}
           </ul>
 
+          {/* Bloco de indicadores */}
           <div className={styles.indicators}>
             {indicators.map((i) => (
               <div key={i.label} className={styles.indicator}>

@@ -1,5 +1,6 @@
 /* NAVBAR */
 
+/* Barra fixa no topo */
 .navbar {
   position: fixed;
   inset: 0 0 auto 0;
@@ -33,6 +34,7 @@
   transition: padding 0.35s ease;
 }
 
+/* Navbar encolhe */
 .scrolled .inner {
   padding: 15px 40px;
 }
@@ -62,6 +64,7 @@
   transition: 0.35s;
 }
 
+/* Logo gira */
 .brand:hover .logo {
   transform: rotate(-8deg);
   border-color: rgba(232, 221, 208, 0.35);
@@ -106,9 +109,7 @@
   margin: 0;
 }
 
-/* Evita que o toque em cima do texto seja interpretado como seleção de
-   texto em vez de clique — sintoma clássico em mobile: tocar no texto não
-   faz nada, tocar no espaço vazio ao redor funciona normalmente. */
+/* Evita que o toque em cima do texto seja interpretado como seleção de texto em vez de clique */
 .brand,
 .link,
 .cta,
@@ -136,6 +137,7 @@
   color: #fff;
 }
 
+/* Sublinhado animado */
 .link::after {
   content: "";
   position: absolute;
@@ -202,6 +204,7 @@
 
 /* MOBILE WRAPPER */
 
+/* Camada full-screen que contém backdrop + drawer, alinhada à direita */
 .mobileWrapper {
   position: fixed;
   inset: 0;
@@ -212,6 +215,7 @@
 
 /* BACKDROP */
 
+/* Fundo escurecido/desfocado atrás do drawer */
 .backdrop {
   position: absolute;
   inset: 0;
@@ -225,7 +229,7 @@
 .mobileDrawer {
   position: relative;
   z-index: 1;
-  width: min(380px, 86vw);
+  width: min(380px, 86vw); /* nunca ultrapassa 380px, mas respeita telas menores */
   height: 100%;
   padding: 24px;
   overflow-y: auto;
@@ -283,7 +287,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  flex: 1;
+  flex: 1; /* empurra o footer do drawer para baixo */
 }
 
 .mobileLink {
@@ -306,6 +310,7 @@
     padding-left 0.3s ease;
 }
 
+/* Hover empurra o texto para a direita */
 .mobileLink:hover {
   color: var(--al-accent);
   background: rgba(255, 255, 255, 0.05);
@@ -357,6 +362,7 @@
 
 /* RESPONSIVO */
 
+/* Abaixo de 900px */
 @media (max-width: 900px) {
   .inner {
     padding: 18px 22px;
@@ -376,12 +382,14 @@
   }
 }
 
+/* Acima de 900px */
 @media (min-width: 901px) {
   .mobileWrapper {
     display: none;
   }
 }
 
+/* Telas bem pequenas */
 @media (max-width: 480px) {
   .mobileDrawer {
     width: 100%;

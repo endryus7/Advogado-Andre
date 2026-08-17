@@ -5,6 +5,7 @@ import SectionTitle from "./SectionTitle";
 import { services } from "@/data/content";
 import { WHATSAPP_URL } from "@/utils/whatsapp";
 
+// Seção Áreas de Atuação
 export default function Services() {
   return (
     <section id="services" className={styles.services}>
@@ -27,8 +28,8 @@ export default function Services() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{
                   duration: 0.55,
-                  delay: i * 0.06,
-                  ease: [0.22, 1, 0.36, 1],
+                  delay: i * 0.06, // cascata suave entre os cards
+                  ease: [0.22, 1, 0.36, 1], // curva de easing customizada
                 }}
               >
                 <div className={styles.iconWrap}>
@@ -36,6 +37,7 @@ export default function Services() {
                 </div>
                 <h3 className={styles.cardTitle}>{s.title}</h3>
                 <p className={styles.cardText}>{s.description}</p>
+                {/* Link direto para o WhatsApp */}
                 <a
                   href={WHATSAPP_URL}
                   target="_blank"

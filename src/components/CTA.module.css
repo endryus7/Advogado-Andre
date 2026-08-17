@@ -3,9 +3,10 @@
   padding: 130px 0;
   background: var(--al-primary);
   color: var(--al-white);
-  overflow: hidden;
+  overflow: hidden; /* contém os elementos decorativos de fundo */
 }
 
+/* Linha fina centralizada no topo da seção */
 .cta::before {
   content: "";
   position: absolute;
@@ -18,13 +19,14 @@
   opacity: 0.5;
 }
 
+/* Fundo decorativo com dois brilhos radiais suaves */
 .bg {
   position: absolute;
   inset: 0;
   background-image:
     radial-gradient(circle at 15% 30%, rgba(232, 221, 208, 0.15), transparent 45%),
     radial-gradient(circle at 85% 70%, rgba(232, 221, 208, 0.1), transparent 40%);
-  pointer-events: none;
+  pointer-events: none; /* não interfere em cliques */
 }
 
 .container {
@@ -83,10 +85,12 @@
   transition: transform 0.3s ease;
 }
 
+/* Seta do botão desliza para a direita no hover */
 .ctaBtn:hover .btnArrow {
   transform: translateX(4px);
 }
 
+/* Mobile */
 @media (max-width: 640px) {
   .cta {
     padding: 90px 0;

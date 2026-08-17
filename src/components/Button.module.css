@@ -18,14 +18,16 @@
   overflow: hidden;
 }
 
+/* Ícone */
 .button svg {
   transition: transform 0.35s ease;
 }
 
 .button:hover svg {
-  transform: translateX(3px);
+  transform: translateX(3px); /* ícone */
 }
 
+/* cor sólida principal da marca */
 .primary {
   background: var(--al-primary);
   color: var(--al-white);
@@ -37,6 +39,7 @@
   box-shadow: var(--al-shadow-md);
 }
 
+/* cor de destaque, usada em CTAs secundários */
 .accent {
   background: var(--al-accent);
   color: var(--al-primary);
@@ -48,6 +51,7 @@
   box-shadow: 0 20px 40px rgba(57, 3, 3, 0.25);
 }
 
+/* fundo transparente com borda, usada sobre fundos claros */
 .outline {
   background: transparent;
   color: var(--al-primary);
@@ -59,6 +63,7 @@
   color: var(--al-white);
 }
 
+/* usada sobre fundos escuros/imagens, borda branca */
 .ghostLight {
   background: transparent;
   color: var(--al-white);
@@ -71,6 +76,7 @@
   border-color: var(--al-white);
 }
 
+/* Modificador de tamanho */
 .large {
   padding: 20px 40px;
   font-size: 1rem;
