@@ -1,5 +1,4 @@
-/* Floating WhatsApp Button - Minimalist & Pure CSS */
-
+/* Botão fixo no canto inferior direito da tela */
 .button {
   position: fixed;
   bottom: 1.75rem;
@@ -27,6 +26,7 @@
     box-shadow 0.3s ease;
 }
 
+/* Efeito de destaque ao passar o mouse */
 .button:hover {
   transform: scale(1.08) translateY(-2px);
   background: #1ebe5b;
@@ -42,11 +42,12 @@
   transition: transform 0.3s ease;
 }
 
+/* Ícone gira levemente no hover */
 .button:hover .icon {
   transform: rotate(-6deg);
 }
 
-/* Efeito Ping Pulsante */
+/* Efeito Ping Pulsante: camada atrás do botão */
 .ping {
   position: absolute;
   inset: 0;
@@ -54,9 +55,10 @@
   border-radius: 9999px;
   background: rgba(37, 211, 102, 0.55);
   animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
-  pointer-events: none;
+  pointer-events: none; /* não deve capturar clique */
 }
 
+/* Keyframes do pulso */
 @keyframes ping {
   75%,
   100% {
@@ -65,7 +67,7 @@
   }
 }
 
-/* Responsividade Mobile */
+/* Responsividade */
 @media (max-width: 768px) {
   .button {
     bottom: 1.25rem;

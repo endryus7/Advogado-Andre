@@ -23,11 +23,12 @@
   border-radius: 2px;
   padding: 40px 34px;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* necessário para barra lateral não vazar do card */
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   cursor: default;
 }
 
+/* Barra de destaque vertical à esquerda do card, escondida por padrão */
 .card::before {
   content: "";
   position: absolute;
@@ -47,6 +48,7 @@
   border-color: transparent;
 }
 
+/* Hover revela a barra lateral */
 .card:hover::before {
   transform: scaleY(1);
 }
@@ -105,10 +107,12 @@
   color: var(--al-accent);
 }
 
+/* Seta do link desliza para a direita no hover do card */
 .card:hover .cardLink svg {
   transform: translateX(4px);
 }
 
+/* Tablet */
 @media (max-width: 960px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
@@ -121,6 +125,7 @@
   }
 }
 
+/* Mobile */
 @media (max-width: 620px) {
   .grid {
     grid-template-columns: 1fr;

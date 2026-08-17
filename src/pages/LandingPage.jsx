@@ -10,9 +10,10 @@ import CTA from "../components/CTA";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import WhatsAppFloat from "../components/WhatsAppFloat";
-import "../styles/landing.css";
+import "../styles/landing.css"; 
 import styles from "./LandingPage.module.css";
 
+// Página principal
 export default function LandingPage() {
   return (
     <div className={`al-root ${styles.page}`}>

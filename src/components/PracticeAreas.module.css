@@ -9,6 +9,7 @@
   padding: 0 40px;
 }
 
+/* Lista vertical */
 .accordion {
   margin-top: 48px;
   display: flex;
@@ -24,6 +25,7 @@
   margin: 0;
 }
 
+/* Botão clicável */
 .trigger {
   width: 100%;
   display: flex;
@@ -38,6 +40,7 @@
   font-family: inherit;
 }
 
+/* Contorno visível  */
 .trigger:focus-visible {
   outline: 2px solid var(--al-accent);
   outline-offset: 4px;
@@ -79,11 +82,13 @@
   transition: transform 0.35s ease;
 }
 
+/* Seta gira 180°  */
 .itemOpen .chevron {
   transform: rotate(180deg);
   color: var(--al-primary);
 }
 
+/* overflow hidden  */
 .panelWrapper {
   overflow: hidden;
 }
@@ -108,11 +113,12 @@
 
 .list svg {
   flex-shrink: 0;
-  margin-top: 3px;
+  margin-top: 3px; /* alinha o ícone com a primeira linha do texto */
   color: var(--al-primary);
   opacity: 0.55;
 }
 
+/* Mobile */
 @media (max-width: 640px) {
   .areas {
     padding: 100px 0;

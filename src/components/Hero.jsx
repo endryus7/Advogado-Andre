@@ -1,13 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  Check,
-  MessageCircle,
-  ShieldCheck,
-  Phone,
-  MapPin,
-  Clock3,
-  ArrowRight,
-} from "lucide-react";
+import { Check, MessageCircle, ShieldCheck, Phone, MapPin, Clock3, ArrowRight } from "lucide-react";
 
 import styles from "./Hero.module.css";
 import Button from "./Button";
@@ -15,6 +7,7 @@ import Button from "./Button";
 import heroOffice from "@/assets/images/hero-office.jpg";
 import { WHATSAPP_URL } from "@/utils/whatsapp";
 
+// Selos de destaque
 const benefits = [
   "Prisão em Flagrante",
   "Audiência de Custódia",
@@ -22,6 +15,7 @@ const benefits = [
   "Defesa Estratégica",
 ];
 
+// Itens da barra do Hero
 const bottomItems = [
   {
     tag: "01",
@@ -40,6 +34,7 @@ const bottomItems = [
   },
 ];
 
+// Helper que gera a config de animação "fade + sobe", com delay customizável por elemento
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
   animate: { opacity: 1, y: 0 },
@@ -50,10 +45,11 @@ const fadeUp = (delay = 0) => ({
   },
 });
 
+// Seção principal
 export default function Hero() {
-  // scroll
+  // Scroll suave até a seção "about" (usado no botão "Conheça o advogado")
   const handleScrollToAbout = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // evita o salto padrão do link âncora
     const section = document.getElementById("about");
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -68,7 +64,7 @@ export default function Hero() {
           src={heroOffice}
           alt="Escritório de advocacia"
           className={styles.bgImage}
-          loading="eager"
+          loading="eager" // carrega imediatamente
           fetchPriority="high"
           initial={{ scale: 1.08 }}
           animate={{ scale: 1 }}
@@ -76,6 +72,7 @@ export default function Hero() {
         />
       </div>
 
+      {/* Camadas de escurecimento/brilho sobre a imagem */}
       <div className={styles.overlay} />
       <div className={styles.ambientGlow} />
 
@@ -83,9 +80,7 @@ export default function Hero() {
         {/* LEFT */}
         <div className={styles.left}>
           <motion.div className={styles.eyebrowWrapper} {...fadeUp(0)}>
-            <span className={styles.eyebrow}>
-              ADVOCACIA CRIMINAL • PORTO ALEGRE E REGIÃO
-            </span>
+            <span className={styles.eyebrow}>ADVOCACIA CRIMINAL • PORTO ALEGRE E REGIÃO</span>
           </motion.div>
 
           <motion.h1 className={styles.title} {...fadeUp(0.1)}>
@@ -97,12 +92,12 @@ export default function Hero() {
           <motion.div className={styles.divider} {...fadeUp(0.18)} />
 
           <motion.p className={styles.subtitle} {...fadeUp(0.2)}>
-            Atuação técnica, rápida e personalizada na defesa dos seus direitos
-            em casos de Direito Penal e Processual Penal. Cada caso exige
-            estratégia, experiência e atuação imediata.
+            Atuação técnica, rápida e personalizada na defesa dos seus direitos em casos de Direito
+            Penal e Processual Penal. Cada caso exige estratégia, experiência e atuação imediata.
           </motion.p>
 
           <motion.div className={styles.actions} {...fadeUp(0.3)}>
+            {/* CTA principal */}
             <Button
               as="a"
               href={WHATSAPP_URL}
@@ -116,6 +111,7 @@ export default function Hero() {
               <ArrowRight size={16} className={styles.btnArrow} />
             </Button>
 
+            {/* CTA secundário */}
             <Button
               as="a"
               href="#about"
@@ -169,6 +165,7 @@ export default function Hero() {
 
               <div className={styles.cardDivider} />
 
+              {/* Lista fixa de 3 itens de informação */}
               <div className={styles.cardItems}>
                 <div className={styles.cardItem}>
                   <span className={styles.itemIcon}>

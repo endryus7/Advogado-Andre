@@ -4,14 +4,16 @@ import styles from "./CTA.module.css";
 import Button from "./Button";
 import { WHATSAPP_URL } from "@/utils/whatsapp";
 
+// Seção de chamada direto para o WhatsApp
 export default function CTA() {
   return (
     <section className={styles.cta}>
+      {/* Camada de fundo decorativa */}
       <div className={styles.bg} />
       <motion.div
         className={styles.container}
         initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }} // anima ao entrar na tela
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.7 }}
       >
@@ -20,8 +22,8 @@ export default function CTA() {
           Está enfrentando um <em>processo criminal</em>?
         </h2>
         <p className={styles.subtitle}>
-          Uma atuação rápida pode fazer toda a diferença. Fale agora com o Dr. André
-          Albani Lara e receba uma análise inicial do seu caso.
+          Uma atuação rápida pode fazer toda a diferença. Fale agora com o Dr. André Albani Lara e
+          receba uma análise inicial do seu caso.
         </p>
         <div className={styles.actions}>
           <Button

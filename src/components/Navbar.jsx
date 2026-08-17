@@ -4,6 +4,7 @@ import { Menu, X, Mail } from "lucide-react";
 import styles from "./Navbar.module.css";
 import logo from "@/assets/images/logo.png";
 
+// Links do menu
 const links = [
   { id: "home", label: "Início" },
   { id: "about", label: "Sobre" },
@@ -15,24 +16,26 @@ const links = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const burgerRef = useRef(null);
-  const panelRef = useRef(null);
-  const closeRef = useRef(null);
+  const [scrolled, setScrolled] = useState(false); // controla o fundo escuro/blur ao rolar a página
+  const [open, setOpen] = useState(false); // controla se o menu mobile está aberto
+  const burgerRef = useRef(null); // botão hambúrguer
+  const panelRef = useRef(null); // painel do drawer
+  const closeRef = useRef(null); // botão de fechar
 
+  // Detecta scroll da página para alternar o estilo "scrolled" da navbar
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
 
-    onScroll();
+    onScroll(); // roda uma vez no mount, caso a página já abra rolada
 
     window.addEventListener("scroll", onScroll, {
-      passive: true,
+      passive: true, // melhora performance do scroll
     });
 
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Ao abrir/fechar o menu mobile: trava o scroll do body e move o foco
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
 
@@ -43,6 +46,7 @@ export default function Navbar() {
     }
   }, [open]);
 
+  // Enquanto o menu mobile está aberto: fecha com Esc e prende o Tab dentro do drawer
   useEffect(() => {
     if (!open) return;
 
@@ -53,6 +57,7 @@ export default function Navbar() {
       }
 
       if (e.key === "Tab" && panelRef.current) {
+        // Busca todos os elementos focáveis dentro do drawer
         const focusable = panelRef.current.querySelectorAll(
           'button, a[href], [tabindex]:not([tabindex="-1"])',
         );
@@ -62,11 +67,13 @@ export default function Navbar() {
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
 
+        // Shift+Tab no primeiro item volta para o último (loop reverso)
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();
         }
 
+        // Tab no último item volta para o primeiro (loop normal)
         if (!e.shiftKey && document.activeElement === last) {
           e.preventDefault();
           first.focus();
@@ -79,27 +86,29 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-const scrollToSection = (id) => {
-  const el = document.getElementById(id);
-  if (!el) return;
+  // Scroll suave
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-  const headerOffset = 90;
-  const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+    const headerOffset = 90;
+    const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
 
-  window.scrollTo({ top, behavior: "smooth" });
-};
+    window.scrollTo({ top, behavior: "smooth" });
+  };
 
-const go = (id) => {
-  setOpen(false);
-  document.body.style.overflow = "";
-  scrollToSection(id);
-};
+  // Fecha o menu mobile e navega até a seção
+  const go = (id) => {
+    setOpen(false);
+    document.body.style.overflow = "";
+    scrollToSection(id);
+  };
 
   return (
     <>
       <motion.header
         initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={{ y: 0, opacity: 1 }} // navbar desliza de cima para baixo ao carregar
         transition={{
           duration: 0.6,
           ease: "easeOut",
@@ -107,7 +116,8 @@ const go = (id) => {
         className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}
       >
         <div className={styles.inner}>
-          <button onClick={ () => go("home")}  className={styles.brand} aria-label="Ir para início">
+          {/* Logo/nome clicável */}
+          <button onClick={() => go("home")} className={styles.brand} aria-label="Ir para início">
             <img src={logo} alt="Dr. André Albani Lara" className={styles.logo} />
 
             <span className={styles.brandText}>
@@ -117,6 +127,7 @@ const go = (id) => {
             </span>
           </button>
 
+          {/* Menu horizontal */}
           <nav className={styles.nav} aria-label="Navegação principal">
             <ul className={styles.menu}>
               {links.map((item) => (
@@ -129,12 +140,13 @@ const go = (id) => {
             </ul>
           </nav>
 
+          {/* CTA de contato */}
           <button onClick={() => go("contact")} className={styles.cta}>
             <Mail size={17} />
             Entrar em Contato
-            
           </button>
 
+          {/* Botão hambúrguer */}
           <button
             ref={burgerRef}
             className={styles.burger}
@@ -147,10 +159,12 @@ const go = (id) => {
           </button>
         </div>
       </motion.header>
+
+      {/* AnimatePresence anima a saída do drawer/backdrop ao fechar */}
       <AnimatePresence>
         {open && (
           <div className={styles.mobileWrapper}>
-            {/* Backdrop */}
+            {/* Backdrop: fundo escurecido, clicar nele fecha o menu */}
 
             <motion.div
               className={styles.backdrop}
@@ -161,7 +175,7 @@ const go = (id) => {
               onClick={() => setOpen(false)}
             />
 
-            {/* Drawer */}
+            {/* Drawer: painel lateral com o menu mobile, entra deslizando da direita */}
 
             <motion.aside
               id="mobile-menu"
@@ -174,7 +188,7 @@ const go = (id) => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{
-                type: "spring",
+                type: "spring", // animação com física de mola
                 damping: 26,
                 stiffness: 230,
               }}

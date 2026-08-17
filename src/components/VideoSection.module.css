@@ -19,9 +19,11 @@
 .card {
   background: var(--al-bg);
   border-radius: 2px;
-  overflow: hidden;
+  overflow: hidden; /* corta o iframe nas bordas arredondadas */
   border: 1px solid var(--al-border);
-  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  transition:
+    box-shadow 0.4s ease,
+    transform 0.4s ease;
 }
 
 .card:hover {
@@ -29,12 +31,14 @@
   transform: translateY(-4px);
 }
 
+/* Mantém proporção 16:9 mesmo antes do iframe carregar */
 .frame {
   position: relative;
   aspect-ratio: 16 / 9;
   background: var(--al-primary);
 }
 
+/* Iframe preenche todo o espaço do .frame via posicionamento absoluto */
 .frame iframe {
   position: absolute;
   inset: 0;
@@ -65,6 +69,7 @@
   color: var(--al-accent);
 }
 
+/* Tablet/mobile */
 @media (max-width: 900px) {
   .section {
     padding: 100px 0;

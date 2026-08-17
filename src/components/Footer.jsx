@@ -4,6 +4,7 @@ import logo from "../assets/images/logo.png";
 import { services } from "@/data/content";
 import { INSTAGRAM_URL, WHATSAPP_URL } from "@/utils/whatsapp";
 
+// Links de navegação do rodapé
 const navLinks = [
   { id: "home", label: "Início" },
   { id: "about", label: "Sobre" },
@@ -19,6 +20,7 @@ const EMAIL = "andrelara.advcriminal@gmail.com";
 const OAB = "OAB/RS Nº 141.174";
 
 export default function Footer() {
+  // Faz scroll suave até a seção pelo id
   const go = (id) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -26,6 +28,7 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
+      {/* Marca d'água */}
       <span className={styles.watermark} aria-hidden="true">
         AL
       </span>
@@ -41,12 +44,12 @@ export default function Footer() {
               </div>
             </div>
             <p className={styles.about}>
-              Advocacia com atendimento técnico e humanizado em Porto Alegre e
-              Região Metropolitana.
+              Advocacia com atendimento técnico e humanizado em Porto Alegre e Região Metropolitana.
             </p>
             <span className={styles.oab}>{OAB}</span>
           </div>
 
+          {/* Coluna de navegação */}
           <nav aria-label="Navegação do site">
             <h4 className={styles.colTitle}>Navegação</h4>
             <ul className={styles.list}>
@@ -60,6 +63,7 @@ export default function Footer() {
             </ul>
           </nav>
 
+          {/* Coluna de áreas */}
           <nav aria-label="Áreas de atuação">
             <h4 className={styles.colTitle}>Áreas</h4>
             <ul className={styles.list}>
@@ -86,9 +90,8 @@ export default function Footer() {
               </li>
               <li>
                 <Phone size={15} />
-                <a href={`tel:+55${PHONE_DISPLAY.replace(/\D/g, "")}`}>
-                  {PHONE_DISPLAY}
-                </a>
+                {/* Remove tudo que não é dígito do telefone para montar o link tel: correto */}
+                <a href={`tel:+55${PHONE_DISPLAY.replace(/\D/g, "")}`}>{PHONE_DISPLAY}</a>
               </li>
               <li>
                 <Mail size={15} />
@@ -106,8 +109,8 @@ export default function Footer() {
 
         <div className={styles.bottom}>
           <span>
-            © {new Date().getFullYear()} André Albani Lara — Advocacia Criminal.
-            Todos os direitos reservados.
+            {/* Ano atualizado automaticamente */}© {new Date().getFullYear()} André Albani Lara —
+            Advocacia Criminal. Todos os direitos reservados.
           </span>
         </div>
       </div>

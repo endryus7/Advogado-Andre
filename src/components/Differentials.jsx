@@ -3,6 +3,7 @@ import styles from "./Differentials.module.css";
 import SectionTitle from "./SectionTitle";
 import { differentials } from "@/data/content";
 
+// grid de cards gerado a partir do array differentials
 export default function Differentials() {
   return (
     <section className={styles.section}>
@@ -15,14 +16,14 @@ export default function Differentials() {
 
         <div className={styles.grid}>
           {differentials.map((d, i) => {
-            const Icon = d.icon;
+            const Icon = d.icon; // cada item traz seu próprio componente de ícone
             return (
               <motion.div
                 key={d.title}
                 className={styles.card}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
+                initial={{ opacity: 0, y: 20 }} // estado inicial: invisível e deslocado para baixo
+                whileInView={{ opacity: 1, y: 0 }} // anima ao entrar na viewport
+                viewport={{ once: true, amount: 0.2 }} // dispara só uma vez, com 20% do card visível
                 transition={{ duration: 0.5, delay: i * 0.05 }}
               >
                 <Icon size={28} strokeWidth={1.5} className={styles.cardIcon} />

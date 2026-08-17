@@ -5,9 +5,12 @@ import styles from "./PracticeAreas.module.css";
 import SectionTitle from "./SectionTitle";
 import { practiceAreas } from "@/data/content";
 
+// Seção Áreas de Atuação
 export default function PracticeAreas() {
+  // Guarda item aberto
   const [openIndex, setOpenIndex] = useState(null);
 
+  // Alterna o item clicado
   const toggle = (index) => {
     setOpenIndex((current) => (current === index ? null : index));
   };
@@ -24,6 +27,7 @@ export default function PracticeAreas() {
         <div className={styles.accordion}>
           {practiceAreas.map((area, index) => {
             const isOpen = index === openIndex;
+            // IDs únicos por item, usados para ligar botão <-> painel via aria (acessibilidade)
             const panelId = `area-panel-${index}`;
             const buttonId = `area-button-${index}`;
 
@@ -37,8 +41,8 @@ export default function PracticeAreas() {
                     type="button"
                     id={buttonId}
                     className={styles.trigger}
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
+                    aria-expanded={isOpen} // informa leitor de tela se está expandido
+                    aria-controls={panelId} // associa o botão ao painel que ele controla
                     onClick={() => toggle(index)}
                   >
                     <span className={styles.triggerLeft}>
@@ -49,6 +53,7 @@ export default function PracticeAreas() {
                   </button>
                 </h3>
 
+                {/* AnimatePresence permite animar a saída do painel ao fechar */}
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
@@ -57,7 +62,7 @@ export default function PracticeAreas() {
                       aria-labelledby={buttonId}
                       className={styles.panelWrapper}
                       initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
+                      animate={{ height: "auto", opacity: 1 }} // expande até a altura natural do conteúdo
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                     >

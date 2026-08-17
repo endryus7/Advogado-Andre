@@ -19,6 +19,7 @@ import styles from "./Contact.module.css";
 import { services, practiceAreas } from "@/data/content";
 import { WHATSAPP_URL } from "@/utils/whatsapp";
 
+// Credenciais do EmailJS, vindas de (.env)
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -32,6 +33,7 @@ console.log("EMAILJS CONFIG:", {
 });
 */
 
+// Cards de informação rápida
 const infos = [
   { icon: MessageCircle, title: "WhatsApp", text: "+55 51 9260-5349" },
   { icon: Clock, title: "Atendimento", text: "Imediato para casos urgentes" },
@@ -39,22 +41,27 @@ const infos = [
   { icon: MapPin, title: "Local", text: "Porto Alegre e Região" },
 ];
 
+// Áreas de atuação
 const otherAreas = practiceAreas
   .filter((area) => area.category !== "Direito Criminal")
   .map((area) => area.category);
 
+// Lista final de opções do campo "Assunto": serviços + outras áreas + opção genérica
 const subjects = [...services.map((s) => s.title), ...otherAreas, "Outro assunto"];
 
+// Conjunto de DDDs válidos no Brasil, usado na validação do telefone
 const VALID_DDDS = new Set([
   11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35, 37, 38, 41, 42, 43,
   44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64, 65, 66, 67, 68, 69, 71, 73, 74, 75, 77,
   79, 81, 82, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99,
 ]);
 
+// Regex simples para validação de formato de e-mail
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Formata o telefone digitado no padrão brasileiro
 function formatBrazilPhone(raw) {
-  const digits = raw.replace(/\D/g, "").slice(0, 11);
+  const digits = raw.replace(/\D/g, "").slice(0, 11); // remove tudo que não é número, limita a 11 dígitos
   if (digits.length === 0) return "";
   if (digits.length <= 2) return `(${digits}`;
   const ddd = digits.slice(0, 2);
@@ -64,6 +71,7 @@ function formatBrazilPhone(raw) {
   return `(${ddd}) ${rest.slice(0, 5)}-${rest.slice(5)}`;
 }
 
+// Valida se o telefone tem DDD real e formato correto (fixo: 10 dígitos, celular: 11 dígitos com 9 na frente)
 function isValidBrazilPhone(value) {
   const digits = value.replace(/\D/g, "");
   if (digits.length !== 10 && digits.length !== 11) return false;
@@ -72,6 +80,7 @@ function isValidBrazilPhone(value) {
   return true;
 }
 
+// Um validador por campo do formulário; cada função retorna "" (válido) ou a mensagem de erro
 const validators = {
   name: (v) => (v.trim().length >= 3 ? "" : "Informe seu nome completo."),
   phone: (v) =>
@@ -84,6 +93,7 @@ const validators = {
 
 const initialForm = { name: "", phone: "", email: "", subject: "", message: "" };
 
+// Config de animação
 const fade = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
@@ -91,12 +101,14 @@ const fade = {
   transition: { duration: 0.7 },
 };
 
+// Seção de contato: informações rápidas + formulário validado que envia e-mail via EmailJS
 export default function Contact() {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
+  const [touched, setTouched] = useState({}); // marca quais campos o usuário já "tocou" (blur), para não mostrar erro antes da hora
   const [status, setStatus] = useState("idle"); // idle | submitting | success | error
 
+  // Atualiza o valor do campo e, se ele já foi tocado, revalida em tempo real
   const setField = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
     if (touched[field]) {
@@ -104,11 +116,13 @@ export default function Contact() {
     }
   };
 
+  // Ao sair do campo (blur): marca como tocado e roda a validação
   const handleBlur = (field) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     setErrors((prev) => ({ ...prev, [field]: validators[field](form[field]) }));
   };
 
+  // Campo telefone formata a máscara antes de salvar no estado
   const handlePhoneChange = (value) => {
     setField("phone", formatBrazilPhone(value));
   };
@@ -116,20 +130,23 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Revalida todos os campos de uma vez no submit
     const nextErrors = Object.fromEntries(
       Object.entries(validators).map(([field, validate]) => [field, validate(form[field])]),
     );
     setErrors(nextErrors);
     setTouched({ name: true, phone: true, email: true, subject: true, message: true });
 
+    // Se houver erro, foca no primeiro campo inválido e interrompe o envio
     const firstInvalid = Object.keys(nextErrors).find((field) => nextErrors[field]);
     if (firstInvalid) {
       document.getElementById(`contact-${firstInvalid}`)?.focus();
       return;
     }
 
+    // se as variáveis de ambiente do EmailJS não estiverem configuradas
     if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      // Credenciais do EmailJS não configuradas neste ambiente (.env ausente).
+      // Credenciais do EmailJS
       console.error(
         "EmailJS não configurado: defina VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID e VITE_EMAILJS_PUBLIC_KEY.",
       );
@@ -140,6 +157,7 @@ export default function Contact() {
     setStatus("submitting");
 
     try {
+      // Envia o e-mail via EmailJS
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
@@ -154,6 +172,7 @@ export default function Contact() {
         { publicKey: EMAILJS_PUBLIC_KEY },
       );
 
+      // Sucesso: reseta o formulário e os estados de validação
       setStatus("success");
       setForm(initialForm);
       setTouched({});
@@ -173,6 +192,7 @@ export default function Contact() {
   return (
     <section id="contact" className={styles.contact}>
       <div className={styles.container}>
+        {/* Coluna esquerda */}
         <motion.div className={styles.left} {...fade}>
           <span className={styles.eyebrow}>Contato</span>
           <h2 className={styles.title}>Atendimento direto e sigiloso</h2>
@@ -199,6 +219,7 @@ export default function Contact() {
           </div>
         </motion.div>
 
+        {/* Coluna direita */}
         <motion.div className={styles.card} {...fade}>
           <span className={styles.cardBadge}>
             <MessageCircle size={14} /> Canal Oficial
@@ -210,6 +231,7 @@ export default function Contact() {
           </p>
           <span className={styles.requiredNote}>* Todos os campos são obrigatórios</span>
 
+          {/* Mensagens de status do envio */}
           {status === "success" && (
             <p className={styles.statusSuccess} role="status">
               <CheckCircle2 size={18} aria-hidden="true" />
@@ -228,6 +250,7 @@ export default function Contact() {
             </p>
           )}
 
+          {/* noValidate desliga a validação nativa do navegador */}
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className={styles.field}>
               <label htmlFor="contact-name">
@@ -317,6 +340,7 @@ export default function Contact() {
               <label htmlFor="contact-subject">
                 Assunto <span aria-hidden="true">*</span>
               </label>
+              {/* Select alimentado dinamicamente pela lista "subjects" (serviços + áreas + "Outro") */}
               <select
                 id="contact-subject"
                 name="subject"
@@ -365,6 +389,7 @@ export default function Contact() {
               )}
             </div>
 
+            {/* Botão desabilitado durante o envio, com ícone de loading girando */}
             <button type="submit" className={styles.cardBtn} disabled={status === "submitting"}>
               {status === "submitting" ? (
                 <Loader2 size={20} className={styles.spin} />

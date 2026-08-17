@@ -9,6 +9,7 @@
   padding: 0 40px;
 }
 
+/* Grid de 4 colunas */
 .timeline {
   position: relative;
   display: grid;
@@ -17,6 +18,7 @@
   margin-top: 40px;
 }
 
+/* Linha horizontal por trás dos ícones */
 .timeline::before {
   content: "";
   position: absolute;
@@ -24,7 +26,13 @@
   left: 8%;
   right: 8%;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--al-border), var(--al-border), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--al-border),
+    var(--al-border),
+    transparent
+  );
   z-index: 0;
 }
 
@@ -37,6 +45,7 @@
   gap: 16px;
 }
 
+/* Círculo do ícone de cada etapa */
 .iconRing {
   width: 68px;
   height: 68px;
@@ -51,6 +60,7 @@
   transition: all 0.4s ease;
 }
 
+/* Anel pontilhado extra ao redor do círculo, invisível até o hover */
 .iconRing::after {
   content: "";
   position: absolute;
@@ -61,6 +71,7 @@
   transition: opacity 0.4s ease;
 }
 
+/* Hover  */
 .step:hover .iconRing {
   background: var(--al-primary);
   color: var(--al-accent);
@@ -95,6 +106,7 @@
   margin: 0;
 }
 
+/* Tablet */
 @media (max-width: 960px) {
   .process {
     padding: 100px 0;
@@ -111,6 +123,7 @@
   }
 }
 
+/* Mobile */
 @media (max-width: 600px) {
   .timeline {
     grid-template-columns: 1fr;
@@ -127,6 +140,7 @@
   }
 }
 
+/* Telas bem pequenas */
 @media (max-width: 420px) {
   .process {
     padding: 80px 0;

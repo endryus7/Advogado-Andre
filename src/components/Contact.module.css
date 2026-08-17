@@ -3,6 +3,7 @@
   background: var(--al-bg);
 }
 
+/* Duas colunas */
 .container {
   max-width: 1280px;
   margin: 0 auto;
@@ -50,6 +51,7 @@
   max-width: 480px;
 }
 
+/* Lista de destaques */
 .highlights {
   display: flex;
   flex-direction: column;
@@ -94,6 +96,7 @@
   font-weight: 600;
 }
 
+/* Grid 2x2 dos cards de informação */
 .infoGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -127,7 +130,7 @@
 
 .infoContent {
   flex: 1;
-  min-width: 0;
+  min-width: 0; /* permite que o texto quebre/trunque corretamente dentro do flex */
 }
 
 .infoTitle {
@@ -144,6 +147,7 @@
   line-height: 1.7;
 }
 
+/* Card escuro que contém o formulário */
 .card {
   background: var(--al-primary);
   color: var(--al-white);
@@ -155,7 +159,7 @@
   position: relative;
   overflow: hidden;
   box-shadow: var(--al-shadow-md);
-  min-width:0;
+  min-width:0; 
 }
 
 .card::before {
@@ -203,6 +207,7 @@
   margin-top: -8px;
 }
 
+/* Mensagens de status (sucesso/erro) */
 .statusSuccess,
 .statusError {
   position: relative;
@@ -255,6 +260,7 @@
   min-width:0;
 }
 
+/* Linha que agrupa telefone + e-mail lado a lado  */
 .row {
   display: flex;
   flex-direction: column;
@@ -275,6 +281,7 @@
   font-weight: 500;
 }
 
+/* Asterisco de campo obrigatório */
 .field label span {
   color: var(--al-accent);
 }
@@ -307,10 +314,11 @@
   color: var(--al-white);
   font-family: inherit;
   font-size: 0.92rem;
-  resize: vertical;
+  resize: vertical; /* usuário só pode redimensionar verticalmente */
   box-sizing: border-box;
 }
 
+/* Wrapper visual dos inputs de texto (nome/telefone/email), com ícone + input juntos */
 .inputWrap {
   display: flex;
   align-items: center;
@@ -343,15 +351,17 @@
 }
 
 .inputWrap input:focus {
-  outline: none;
+  outline: none; /* o destaque de foco é feito no wrapper via :has() abaixo */
 }
 
+/* :has() permite estilizar o wrapper com base no estado do input filho (foco) */
 .inputWrap:has(input:focus) {
   border-color: var(--al-accent);
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 0 3px rgba(232, 221, 208, 0.08);
 }
 
+/* Mesmo truque de :has() para destacar o wrapper quando o input está inválido */
 .inputWrap:has(input[aria-invalid="true"]) {
   border-color: #e2a3a3;
 }
@@ -383,6 +393,7 @@
   background: rgba(255, 255, 255, 0.09);
 }
 
+/* Select e textarea usam aria-invalid diretamente (não têm wrapper como o input) */
 .field select[aria-invalid="true"],
 .field textarea[aria-invalid="true"] {
   border-color: #e2a3a3;
@@ -393,6 +404,7 @@
   color: #f3b8b8;
 }
 
+/* Animação do ícone de loading */
 .spin {
   animation: spin 0.8s linear infinite;
 }
@@ -429,6 +441,7 @@
     box-shadow 0.3s ease;
 }
 
+/* :not(:disabled) evita o hover "aceso" quando o botão está desabilitado (enviando) */
 .cardBtn:hover:not(:disabled) {
   background: var(--al-white);
 }
@@ -456,6 +469,7 @@
   opacity: 0.7;
 }
 
+/* Tablet */
 @media (max-width: 960px) {
   .contact {
     padding: 100px 0;
@@ -475,6 +489,7 @@
   }
 }
 
+/* Mobile pequeno */
 @media (max-width: 520px) {
   .infoGrid {
     grid-template-columns: 1fr;
