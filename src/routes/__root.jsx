@@ -113,7 +113,23 @@ function RootShell({ children }) {
     <html lang="en">
       <head>
         <HeadContent />
+
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-04KSPJ98CC" />
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-04KSPJ98CC');
+            `,
+          }}
+        />
       </head>
+
       <body>
         {children}
         <Scripts />
